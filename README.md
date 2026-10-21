@@ -22,7 +22,7 @@ npm run bootstrap
 npm run dev
 ```
 
-Open http://localhost:3000 and sign in with those credentials. There are no default passwords, public signup routes, or demo accounts. Bootstrap refuses to run once a Superadmin exists. Remove the bootstrap password from the environment after provisioning.
+Open http://localhost:3000 and sign in with those credentials. Administrator accounts require bootstrap credentials; there is no public signup. The login page also offers a shared demo account with sample data. Run `npm run db:seed:demo` to provision it in advance; see [Demo sandbox](docs/demo-sandbox.md) for credentials and reset behavior. Bootstrap refuses to run once a Superadmin exists. Remove the bootstrap password from the environment after provisioning.
 
 The Superadmin creates companies and their accounts in **Admin**. Company Admins manage company settings and existing staff access. Staff can create clients, draft/issue invoices, and print/export them. Staff cannot change company settings, reset accounts, provision users, or mark invoices paid.
 

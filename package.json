@@ -13,6 +13,7 @@
     "format": "prettier --write src scripts tests *.json *.ts *.mjs",
     "db:up": "docker compose up -d --wait db",
     "db:down": "docker compose stop db",
+    "db:seed:demo": "node --env-file-if-exists=.env.local --experimental-strip-types scripts/seed-demo.ts",
     "admin:check": "node --env-file=.env.local --experimental-strip-types scripts/superadmin.ts --check",
     "admin:recover": "node --env-file=.env.local --experimental-strip-types scripts/superadmin.ts --recover"
   },

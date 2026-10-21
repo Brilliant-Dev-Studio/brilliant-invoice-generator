@@ -6,6 +6,12 @@ The seed contains three clients, three MMK products (available in the invoice ed
 
 Demo identity is derived from a reserved company ID after session verification, never from an editable email or invoice field. Print pages have a fixed SVG watermark repeated on every page. PDF exports verify that this watermark is present before rendering. Ordinary account exports remain unchanged.
 
+## Seed from the terminal
+
+Run `npm run db:seed:demo` with `DATABASE_URL` configured in `.env.local` or the process environment. This creates the schema if needed and provisions the demo account and sample data. A repeat run preserves changes made within the last 24 hours; an overdue seed is restored automatically.
+
+To immediately restore the original demo data, run `npm run db:seed:demo -- --reset`. This replaces only the demo workspace's invoices, clients, products, and settings. Other companies are untouched. The command reports the stored record counts after success and exits with a nonzero status on failure.
+
 ## Daily reset
 
 `vercel.json` schedules `/api/cron/demo-reset` daily at 00:00 UTC (06:30 Myanmar time). Set `CRON_SECRET` to a random value of at least 32 characters in the deployment environment. Vercel sends it as a Bearer authorization header. Deploy the project to activate the schedule; this configuration does not install a local cron job.
