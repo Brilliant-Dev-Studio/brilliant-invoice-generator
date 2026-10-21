@@ -121,6 +121,14 @@ The build script uses Webpack for compatibility with restricted build environmen
 
 ## Validation
 
+### Vercel login configuration
+
+In Vercel **Project Settings > Environment Variables**, configure `DATABASE_URL`, `APP_URL` (your deployed HTTPS URL), and `JWT_SECRET` for Production. Local `.env.local` values are not uploaded to Vercel.
+
+Generate a session secret with `openssl rand -hex 32` and save the output as `JWT_SECRET`. Login requires at least 32 characters. After adding or changing these variables, redeploy for them to take effect. The message "The administrator needs to configure the session secret before login" means `JWT_SECRET` is missing or too short in that deployment.
+
+### Project checks
+
 ```sh
 npm run typecheck
 npm run lint
