@@ -1,0 +1,252 @@
+/* Workspace atmosphere is screen-only; invoice paper keeps its chosen theme. */
+.night-atmosphere {
+  display: none;
+}
+@media screen {
+  :root[data-theme="dark"] body {
+    isolation: isolate;
+  }
+  [data-theme="dark"] .night-atmosphere {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .night-atmosphere::before {
+    content: "";
+    position: absolute;
+    inset: -20%;
+    background:
+      radial-gradient(ellipse at 20% 25%, #5a91aa38, transparent 50%),
+      radial-gradient(ellipse at 80% 60%, #678e7526, transparent 45%),
+      radial-gradient(ellipse at 45% 95%, #bc955426, transparent 48%);
+    animation: cozy-night-drift 32s ease-in-out infinite alternate;
+  }
+  .night-shooting-star {
+    position: absolute;
+    top: 14%;
+    left: 8%;
+    width: 110px;
+    height: 2px;
+    border-radius: 50%;
+    background: linear-gradient(90deg, transparent, #c7e3ed66 65%, #fff1cf);
+    opacity: 0;
+    transform: rotate(30deg);
+    animation: cozy-shooting-star 19s linear 2s infinite;
+  }
+  .night-shooting-star::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: -1px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #fff4d9;
+    box-shadow: 0 0 10px 2px #e3eaff55;
+  }
+  .night-shooting-star:nth-child(2) {
+    top: 9%;
+    left: 54%;
+    width: 85px;
+    animation-duration: 23s;
+    animation-delay: 8s;
+  }
+  .night-shooting-star:nth-child(3) {
+    top: 45%;
+    left: 20%;
+    width: 70px;
+    animation-duration: 29s;
+    animation-delay: 14s;
+  }
+  @keyframes cozy-night-drift {
+    0% {
+      transform: translate3d(-4%, -2%, 0) scale(1);
+      opacity: 0.65;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate3d(4%, 3%, 0) scale(1.08);
+      opacity: 0.8;
+    }
+  }
+  @keyframes cozy-shooting-star {
+    0% {
+      transform: translate3d(0, 0, 0) rotate(30deg);
+      opacity: 0;
+    }
+    2% {
+      opacity: 0.75;
+    }
+    10% {
+      transform: translate3d(260px, 150px, 0) rotate(30deg);
+      opacity: 0;
+    }
+    100% {
+      transform: translate3d(260px, 150px, 0) rotate(30deg);
+      opacity: 0;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --background: #101722;
+    --foreground: #f4eee2;
+    --panel: #1b2635;
+    --input: #141f2d;
+    --border: #37465b;
+    --muted: #aab8cb;
+    --blue: #e7c58c;
+    --surface: #1b2635;
+    --surface-soft: #243144;
+    --stage: #121c29;
+    --line: #324156;
+    --hover: #2b3b50;
+    --text-strong: #f4eee2;
+    --text-secondary: #cbd5e2;
+    --text-muted: #aab8cb;
+    --accent-text: #f0ce93;
+    --accent-soft: #363229;
+    --accent-line: #756043;
+    --info-text: #b9d4f4;
+    --error-bg: #3a2730;
+    --error-line: #785060;
+    --error-text: #ffb6b2;
+    --success-bg: #1c3636;
+    --success-line: #416c63;
+    --success-text: #a6dfc6;
+    --warning-bg: #3a3223;
+    --warning-line: #78633c;
+    --warning-text: #f0d093;
+    --neutral-bg: #2a384c;
+    --neutral-text: #c3d1e4;
+    --coral: #dcae9f;
+    --mint: #9ccdbf;
+    --cream: #e7cc95;
+    --card-shadow: 0 12px 32px #050b1526, inset 0 1px 0 #e0eaff08;
+  }
+  :root[data-theme="dark"] body {
+    background-color: var(--background);
+    background-image:
+      radial-gradient(
+        circle at 30px 48px,
+        #e8cf9750 0 0.8px,
+        transparent 1.3px
+      ),
+      radial-gradient(
+        circle at 140px 160px,
+        #b3d2ed38 0 0.7px,
+        transparent 1.2px
+      ),
+      radial-gradient(ellipse at 12% 0%, #456b8133, transparent 55%),
+      radial-gradient(ellipse at 95% 80%, #9c784415, transparent 50%);
+    background-size:
+      251px 277px,
+      337px 359px,
+      100% 100%,
+      100% 100%;
+    background-attachment: fixed;
+  }
+  [data-theme="dark"] .app-shell .topbar {
+    background: #162131f5;
+    border-bottom-color: #b7cbe51c;
+    box-shadow: 0 8px 30px #050b151c;
+  }
+  [data-theme="dark"] :is(.app-shell, .login-page) .button-primary {
+    background: linear-gradient(135deg, #f0d7a5, #dcb575);
+    border-color: #edcd95;
+    color: #25231f;
+    box-shadow:
+      0 3px 0 #917348,
+      0 5px 20px #e6be7712;
+  }
+  [data-theme="dark"] .app-shell .nav-link.active {
+    background: linear-gradient(135deg, #e7c58c20, #e7c58c0c);
+    color: #f0d093;
+    box-shadow: inset 0 0 0 1px #e7c58c2b;
+  }
+  [data-theme="dark"]
+    .app-shell
+    :is(.panel, .stat-card, .composer-section, .composer-summary) {
+    background:
+      linear-gradient(145deg, #d2e2ff04, transparent 60%), var(--panel);
+    box-shadow: var(--card-shadow);
+  }
+  [data-theme="dark"] .app-shell .dashboard-banner {
+    background:
+      radial-gradient(
+        circle at 85% 25%,
+        #f6e6bf 0 15px,
+        #efce8e12 16px 40px,
+        transparent 65px
+      ),
+      radial-gradient(ellipse at 100% 0%, #6b91a94d, transparent 65%),
+      linear-gradient(120deg, #24394a, #1b293b);
+    border-color: #587082;
+    box-shadow:
+      inset 0 1px 0 #e5efff0d,
+      0 18px 50px #060d1a26;
+  }
+  [data-theme="dark"] .app-shell .dashboard-banner .button {
+    background: #ead09d;
+    color: #25231f;
+    border-color: #ead09d;
+  }
+  [data-theme="dark"] :is(.app-shell, .login-page) .theme-toggle {
+    color: #f0ce93;
+    background: #e7c58c0b;
+    border-color: #e7c58c38;
+  }
+  [data-theme="dark"] .app-shell .avatar {
+    color: #f0ce93;
+    background: #3b382f;
+    border-color: #756043;
+  }
+  [data-theme="dark"] .app-shell :is(.table-scroll, .data-table) th {
+    background: #202e40;
+    color: #c5d3e4;
+  }
+  [data-theme="dark"] .login-page {
+    background: transparent;
+  }
+  [data-theme="dark"] .login-story {
+    background:
+      radial-gradient(
+        circle at 86% 20%,
+        #f0dbaa 0 20px,
+        #efd49d12 21px 55px,
+        transparent 85px
+      ),
+      radial-gradient(circle at 72% 27%, #e8d6af88 0 1px, transparent 1.5px),
+      radial-gradient(circle at 92% 36%, #bad7ea88 0 1px, transparent 1.5px),
+      radial-gradient(ellipse at 95% 5%, #537c9345, transparent 65%),
+      linear-gradient(145deg, #202f42, #152031);
+    border-color: var(--border);
+  }
+  [data-theme="dark"] .login-art {
+    background: linear-gradient(145deg, #304b55, #223841);
+    border-color: #708b8159;
+    box-shadow:
+      0 24px 60px #070e1a4d,
+      inset 0 1px 0 #ecdbb51a;
+  }
+  [data-theme="dark"] .login-art :is(.art-top, .art-bottom, .art-amount em) {
+    color: #e7d4ac;
+  }
+  [data-theme="dark"] .app-footer {
+    border-color: #b5cce21a;
+  }
+}
+@media screen and (prefers-reduced-motion: reduce) {
+  .night-atmosphere::before {
+    animation: none;
+    opacity: 0.7;
+  }
+  .night-shooting-star {
+    display: none;
+    animation: none;
+  }
+}

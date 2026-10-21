@@ -1,0 +1,123 @@
+.scene {
+  display: block;
+  width: 210px;
+  max-width: 100%;
+  margin: 0 auto 12px;
+  color: var(--foreground, #665043);
+}
+.scene svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.compact {
+  width: 145px;
+  margin-bottom: 4px;
+}
+.character {
+  animation: bob 4s ease-in-out infinite;
+}
+.sway {
+  transform-origin: 120px 155px;
+  animation: sway 5s ease-in-out infinite;
+}
+.companion {
+  animation: bob 4s ease-in-out -2s infinite;
+}
+.inspect {
+  transform-origin: 120px 150px;
+  animation: sway 6s ease-in-out infinite;
+}
+.celebrate {
+  animation: bob 2.8s ease-in-out infinite;
+}
+@keyframes sway {
+  0%,
+  100% {
+    transform: rotate(-2deg);
+  }
+  50% {
+    transform: rotate(2deg);
+  }
+}
+.hand {
+  transform-origin: 164px 99px;
+  animation: wave 4s ease-in-out infinite;
+}
+.eyes {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: blink 6s infinite;
+}
+.sparkles {
+  animation: glow 4s ease-in-out infinite;
+}
+.hearts {
+  animation: heartFloat 5s ease-in-out infinite;
+}
+@keyframes heartFloat {
+  0%,
+  100% {
+    transform: translateY(2px);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(-5px);
+    opacity: 0.85;
+  }
+}
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+@keyframes wave {
+  0%,
+  30%,
+  100% {
+    transform: rotate(0);
+  }
+  10%,
+  20% {
+    transform: rotate(12deg);
+  }
+  15%,
+  25% {
+    transform: rotate(-8deg);
+  }
+}
+@keyframes blink {
+  0%,
+  44%,
+  48%,
+  100% {
+    transform: scaleY(1);
+  }
+  46% {
+    transform: scaleY(0.12);
+  }
+}
+@keyframes glow {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scene * {
+    animation: none;
+  }
+}
+@media print {
+  .scene {
+    display: none;
+  }
+}

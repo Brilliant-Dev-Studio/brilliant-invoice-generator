@@ -1,0 +1,34 @@
+.san-pya-name {
+  font-family: var(--font-myanmar), sans-serif;
+  letter-spacing: normal;
+  font-weight: 600;
+  line-height: 1.6;
+}
+.brand .san-pya-symbol {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  color: #a45138;
+}
+[data-theme="dark"] .brand .san-pya-symbol {
+  color: #b3684b;
+}
+.invoice-paper .brand .san-pya-symbol {
+  color: var(--invoice-accent, #a45138);
+}
+.brand .san-pya-wordmark {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.brand .san-pya-name {
+  font-size: 24px;
+}
+.brand .san-pya-wordmark small {
+  font-family: "Hanken Grotesk Variable", sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  line-height: 1.3;
+  color: var(--muted);
+}

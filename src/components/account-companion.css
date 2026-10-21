@@ -1,0 +1,118 @@
+.companion-slot {
+  position: fixed;
+  inset: 0;
+  z-index: 35;
+  pointer-events: none;
+}
+.account-companion {
+  position: absolute;
+  left: max(20px, env(safe-area-inset-left));
+  bottom: max(20px, env(safe-area-inset-bottom));
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: min(540px, calc(100% - 40px));
+  pointer-events: none;
+}
+.companion-speech {
+  pointer-events: auto;
+  position: relative;
+  min-width: 0;
+  flex: 1;
+  margin-left: 190px;
+  overflow-wrap: anywhere;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 22px 22px 22px 5px;
+  padding: 16px 34px 14px 20px;
+  box-shadow: var(--card-shadow);
+}
+.companion-dismiss {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+.companion-greeting {
+  color: var(--accent-text);
+  font-size: 12px;
+  font-weight: 600;
+}
+.companion-speech p {
+  font-size: 14px;
+  line-height: 1.85;
+  margin-top: 4px;
+}
+.companion-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  margin-top: 8px;
+}
+.companion-tools button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 0;
+  min-height: 44px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 11px;
+}
+.companion-tools button:first-child {
+  min-width: 44px;
+}
+.companion-tools a,
+.companion-speech small {
+  color: var(--muted);
+  font-size: 10px;
+}
+.companion-speech small {
+  display: block;
+  margin-block: 4px;
+}
+@media (max-width: 767px) {
+  .companion-slot {
+    position: relative;
+    inset: auto;
+    z-index: 1;
+    margin-top: 24px;
+  }
+  .account-companion {
+    position: relative;
+    min-height: 110px;
+    gap: 0;
+    left: 0;
+    bottom: auto;
+    width: 100%;
+  }
+  .companion-speech {
+    padding: 14px 30px 12px 12px;
+    margin-left: 110px;
+  }
+  .companion-speech p {
+    font-size: 12px;
+  }
+}
+/* The viewport layer anchors the absolute companion without reserving page space. */
+.account-companion > button {
+  pointer-events: auto;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+@media (min-width: 768px) and (max-width: 1366px) {
+  .client-workspace .account-companion {
+    left: calc(120px + env(safe-area-inset-left));
+    width: min(540px, calc(100% - 144px));
+  }
+}

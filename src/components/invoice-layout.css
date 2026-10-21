@@ -1,0 +1,239 @@
+/* Keep payment instructions and accounting totals on a shared document grid. */
+.invoice-paper .invoice-payment-account {
+  display: grid;
+  gap: 8px;
+  margin: 4px 0 0;
+  width: 100%;
+  font-size: 10px;
+  line-height: 1.5;
+  break-inside: avoid;
+}
+.invoice-paper .invoice-payment-account dt {
+  color: var(--invoice-muted, #59675f);
+  font-size: 9px;
+}
+.invoice-paper .invoice-payment-account dd {
+  margin: 0;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  font-variant-numeric: tabular-nums;
+}
+.invoice-paper .invoice-settlement {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 32px;
+  row-gap: 24px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--invoice-line, #dce3db);
+  break-inside: avoid;
+}
+.invoice-paper .invoice-settlement .invoice-summary {
+  grid-column: 2;
+  grid-row: 1;
+  width: 100%;
+  margin: 0;
+}
+.invoice-paper .invoice-settlement .invoice-bottom {
+  display: contents;
+}
+.invoice-paper .invoice-settlement .terms {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+}
+.invoice-paper .invoice-settlement .terms h4 {
+  margin: 0 0 8px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.invoice-paper .invoice-settlement .terms p {
+  line-height: 1.65;
+}
+.invoice-paper .invoice-settlement .payment-qr {
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+}
+.invoice-paper .invoice-settlement .payment-qr img {
+  width: 260px;
+  max-width: 100%;
+  border-radius: 0;
+}
+.invoice-paper .invoice-settlement .payment-qr span {
+  font-size: 10px;
+  line-height: 1.5;
+}
+.invoice-paper .invoice-settlement .payment-qr br {
+  display: none;
+}
+.invoice-paper .invoice-settlement .payment-qr strong {
+  margin-left: 5px;
+}
+.invoice-paper .invoice-settlement .signature {
+  grid-column: 2;
+  grid-row: 2;
+  justify-self: end;
+  align-self: end;
+  width: 190px;
+  max-width: 100%;
+  gap: 10px;
+}
+.invoice-paper .invoice-settlement .signature img {
+  height: 85px;
+}
+.invoice-paper .invoice-settlement .signature span {
+  border-top: 1px solid var(--invoice-line, #dce3db);
+  padding-top: 10px;
+}
+.invoice-paper .invoice-settlement .grand-total {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+}
+.invoice-paper .invoice-settlement .grand-total strong {
+  font-size: 23px;
+  overflow-wrap: anywhere;
+}
+
+/* Modern: a restrained letterhead, with one alignment for every section. */
+.invoice-paper.invoice-designed[data-template="modern"] .invoice-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 20px 32px;
+  --header-bg: var(--invoice-bg);
+  --header-ink: var(--invoice-text);
+  padding: 30px 32px 24px;
+  border-radius: 0;
+  border-top: 5px solid var(--invoice-accent);
+  border-bottom: 1px solid var(--invoice-line);
+}
+.invoice-paper.invoice-designed[data-template="modern"] .invoice-body {
+  padding: 24px 32px;
+}
+.invoice-paper.invoice-designed[data-template="modern"] .invoice-hero-top {
+  display: contents;
+}
+.invoice-paper.invoice-designed[data-template="modern"] .invoice-logo {
+  grid-column: 1;
+  grid-row: 1;
+  width: 170px;
+  height: 70px;
+}
+.invoice-paper.invoice-designed[data-template="modern"] .invoice-word {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+  text-align: right;
+  font-family: var(--font-body);
+  font-size: 24px;
+  letter-spacing: 0.12em;
+  font-weight: 500;
+  opacity: 1;
+}
+.invoice-paper.invoice-designed[data-template="modern"] .invoice-title-row {
+  display: contents;
+}
+.invoice-paper.invoice-designed[data-template="modern"]
+  .invoice-title-row
+  > div {
+  grid-column: 2;
+  grid-row: 2;
+  text-align: right;
+}
+.invoice-paper.invoice-designed[data-template="modern"] .invoice-title-row dl {
+  grid-column: 2;
+  grid-row: 3;
+  margin: 0;
+  min-width: 0;
+  align-self: start;
+}
+.invoice-paper.invoice-designed[data-template="modern"]
+  .invoice-title-row
+  dl
+  div {
+  margin-bottom: 8px;
+}
+.invoice-paper.invoice-designed[data-template="modern"] .invoice-title-row h2 {
+  font-family: var(--font-body);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+.invoice-paper.invoice-designed[data-template="modern"] .invoice-parties {
+  display: contents;
+}
+.invoice-paper.invoice-designed[data-template="modern"] .invoice-parties > div {
+  text-align: left;
+  grid-column: 1;
+  grid-row: 2;
+}
+.invoice-paper.invoice-designed[data-template="modern"]
+  .invoice-parties
+  > div:last-child {
+  grid-row: 3;
+}
+.invoice-paper.invoice-designed[data-template="modern"]
+  .invoice-parties
+  p:empty {
+  display: none;
+}
+.invoice-paper.invoice-designed[data-template="modern"] .invoice-items th {
+  padding: 10px 8px;
+  font-size: 10px;
+}
+.invoice-paper.invoice-designed[data-template="modern"] .invoice-items td {
+  padding: 14px 8px;
+  font-size: 11px;
+}
+.invoice-paper.invoice-designed[data-template="modern"] .grand-total {
+  border-left: 0;
+  border-top: 2px solid var(--invoice-accent);
+  padding: 14px 12px;
+}
+
+@media print {
+  .invoice-paper .invoice-settlement {
+    column-gap: 8mm;
+    row-gap: 5mm;
+    margin-top: 5mm;
+    padding-top: 4mm;
+  }
+  .invoice-paper .invoice-settlement .payment-qr img {
+    width: 52mm;
+    height: auto;
+  }
+  .invoice-paper .invoice-settlement .signature {
+    width: 48mm;
+  }
+  .invoice-paper .invoice-settlement .signature img {
+    height: 22mm;
+  }
+  .invoice-paper.invoice-designed[data-template="modern"] .invoice-hero {
+    gap: 4mm 8mm;
+    padding: 5mm 5mm 4mm !important;
+  }
+  .invoice-paper.invoice-designed[data-template="modern"] .invoice-body {
+    padding: 4mm 5mm 0 !important;
+  }
+  .invoice-paper.invoice-designed[data-template="modern"] .invoice-logo {
+    width: 44mm;
+    height: 18mm;
+  }
+  .invoice-paper.invoice-designed[data-template="modern"] .invoice-hero-top {
+    margin-bottom: 4mm;
+  }
+  .invoice-paper.invoice-designed[data-template="modern"] .invoice-parties {
+    margin-top: 4mm;
+    padding-top: 3mm;
+  }
+  .invoice-paper.invoice-designed[data-template="modern"] .invoice-items td {
+    padding: 3mm 2mm;
+  }
+  .invoice-paper .invoice-footer {
+    margin-top: 5mm;
+    padding-top: 3mm;
+  }
+}

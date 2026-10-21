@@ -1,0 +1,42 @@
+/* Crossfade complete scenes so gradients and mascot states change together. */
+@media screen and (prefers-reduced-motion: no-preference) {
+  html.theme-switching::view-transition-old(root) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+  html.theme-switching::view-transition-new(root) {
+    animation: theme-scene-in 480ms ease-in-out both;
+    mix-blend-mode: normal;
+  }
+  html.theme-switching::view-transition-group(root) {
+    animation-duration: 480ms;
+  }
+  html.theme-color-fade body,
+  html.theme-color-fade
+    :is(
+      .topbar,
+      .panel,
+      .stat-card,
+      .nav-link,
+      .button,
+      .input,
+      select,
+      textarea,
+      .composer-section,
+      .composer-summary
+    ) {
+    transition:
+      background-color 450ms ease-in-out,
+      color 450ms ease-in-out,
+      border-color 450ms ease-in-out,
+      box-shadow 450ms ease-in-out;
+  }
+  @keyframes theme-scene-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}

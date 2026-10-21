@@ -1,0 +1,235 @@
+.daylight-atmosphere {
+  display: none;
+}
+
+@media screen {
+  :root[data-theme="light"] {
+    --background: #f1e5cf;
+    --foreground: #39352e;
+    --panel: #fff8e9;
+    --surface: #fff8e9;
+    --input: #fffdf8;
+    --surface-soft: #eee0c8;
+    --stage: #eee5d6;
+    --border: #dfd3c0;
+    --line: #e4d9c8;
+    --hover: #efe2cf;
+    --muted: #6b5e4e;
+    --text-strong: #39352e;
+    --text-secondary: #615646;
+    --text-muted: #6b5e4e;
+    --blue: #9e4f36;
+    --accent-text: #99492f;
+    --accent-soft: #f8e3d3;
+    --accent-line: #e7bea1;
+    --info-text: #496554;
+    --coral: #e6a183;
+    --mint: #b8cfb3;
+    --cream: #eed69f;
+    --card-shadow: inset 0 1px 0 #fffdf6, 0 12px 40px #80562c12;
+  }
+  [data-theme="light"] body {
+    isolation: isolate;
+    background-image:
+      radial-gradient(ellipse at 95% 0%, #f9d79c 0%, transparent 55%),
+      radial-gradient(ellipse at 0% 65%, #d7dfc3 0%, transparent 60%);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
+  [data-theme="light"] .daylight-atmosphere {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse at 90% 5%, #ffe6acb3, transparent 55%),
+      radial-gradient(ellipse at 0% 80%, #bfd0a578, transparent 55%);
+  }
+  [data-theme="light"] .daylight-atmosphere::before {
+    content: "";
+    position: absolute;
+    inset: -15%;
+    background:
+      radial-gradient(ellipse at 75% 20%, #fff5d6b3, transparent 60%),
+      radial-gradient(ellipse at 15% 60%, #e6ac8d66, transparent 65%),
+      radial-gradient(ellipse at 60% 90%, #d1dfbf80, transparent 60%);
+    animation: daylight-drift 36s ease-in-out infinite alternate;
+  }
+  [data-theme="light"] .daylight-atmosphere::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 95% 10%, #fff7dca6, transparent 65%);
+  }
+  [data-theme="light"] .topbar {
+    background: linear-gradient(110deg, #fff8ecf5, #faecd9f5 65%, #eff0dff5);
+    border-color: var(--border);
+    box-shadow: 0 4px 24px #78582d06;
+  }
+  .daylight-moon {
+    position: absolute;
+    top: 125px;
+    right: 7%;
+    width: clamp(60px, 8vw, 110px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fffef4, #f3e5c6 70%);
+    mask-image: radial-gradient(circle at 68% 30%, transparent 0 43%, #000 44%);
+    transform: rotate(-18deg);
+    opacity: 0.85;
+    filter: drop-shadow(0 0 12px #fff4cf);
+  }
+  .daylight-shooting-star {
+    position: absolute;
+    top: 15%;
+    left: 8%;
+    width: 120px;
+    height: 2px;
+    border-radius: 50%;
+    background: linear-gradient(90deg, transparent, #c1956066 65%, #fffdf0);
+    opacity: 0;
+    animation: daylight-shooting 21s linear 3s infinite;
+  }
+  .daylight-shooting-star::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: -2px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #fffef4;
+    box-shadow: 0 0 8px 2px #d4ac6c99;
+  }
+  .daylight-shooting-star:nth-of-type(3) {
+    top: 9%;
+    left: 52%;
+    width: 95px;
+    animation-duration: 27s;
+    animation-delay: 10s;
+  }
+  .daylight-shooting-star:nth-of-type(4) {
+    top: 54%;
+    left: 12%;
+    width: 80px;
+    animation-duration: 33s;
+    animation-delay: 17s;
+  }
+  @keyframes daylight-shooting {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 0, 0) rotate(28deg);
+    }
+    2% {
+      opacity: 0.85;
+    }
+    10%,
+    100% {
+      opacity: 0;
+      transform: translate3d(280px, 149px, 0) rotate(28deg);
+    }
+  }
+  [data-theme="light"]
+    :is(
+      .panel,
+      .stat-card,
+      .invoice-mobile-card,
+      .client-card,
+      .composer-section,
+      .composer-summary
+    ) {
+    background:
+      radial-gradient(ellipse at 0% 0%, #fffdf4, transparent 75%),
+      linear-gradient(135deg, #fcf1df, #fff8eb 55%, #f1f0df);
+    border-color: var(--border);
+    box-shadow: var(--card-shadow);
+  }
+  [data-theme="light"] .app-shell .nav-link.active {
+    background: linear-gradient(125deg, #e6edd8, #d7e3c9);
+    color: #375641;
+    box-shadow:
+      inset 0 1px 0 #f8ffed,
+      0 3px 8px #49623a0d;
+  }
+  [data-theme="light"] .app-shell .data-table thead {
+    background: linear-gradient(110deg, #efe2cc, #f5ebd9, #e9e8d6);
+  }
+  [data-theme="light"] .app-shell .data-table th {
+    background: transparent;
+    color: #65543f;
+  }
+  [data-theme="light"] .app-shell .data-table tbody tr:hover {
+    background: #f9eed9;
+  }
+  [data-theme="light"]
+    .business-dashboard
+    .dashboard-stats
+    .stat-card:first-child {
+    background: linear-gradient(130deg, #fbe4c7, #fff4df);
+    border-color: #e4c49b;
+  }
+  [data-theme="light"]
+    .business-dashboard
+    .dashboard-stats
+    .stat-card:nth-child(2) {
+    background: linear-gradient(130deg, #e0e8d0, #f3f4e4);
+    border-color: #c9d3b4;
+  }
+  [data-theme="light"]
+    .business-dashboard
+    .dashboard-stats
+    .stat-card:nth-child(3) {
+    background: linear-gradient(130deg, #f4dbce, #fff0e5);
+    border-color: #e4c3af;
+  }
+  [data-theme="light"] .app-shell :is(.eyebrow, .heading-dot) {
+    color: #8d4d31;
+  }
+  [data-theme="light"] .app-shell .app-footer {
+    background: linear-gradient(110deg, #e9ddc8a6, #f4e8d5a6, #e2e6d1a6);
+    border-color: #d6c4a7;
+  }
+  [data-theme="light"] .button-primary {
+    background: linear-gradient(180deg, #a85c40, #9b4d34);
+    border-color: #98482f;
+    color: #fffdf8;
+    box-shadow:
+      0 2px 0 #733b28,
+      0 5px 12px #9b4d3414;
+  }
+  [data-theme="light"] .button-secondary {
+    background: linear-gradient(#fcf6eb, #f1e6d5);
+    border-color: var(--border);
+  }
+  [data-theme="light"] :is(.login-story, .dashboard-banner) {
+    background:
+      radial-gradient(ellipse at 85% 15%, #f8dfa5aa, transparent 60%),
+      linear-gradient(135deg, #f4ead7, #e5eddf);
+    border-color: var(--border);
+  }
+  [data-theme="light"] .dashboard-banner :is(.eyebrow, p) {
+    color: #615646;
+  }
+  @keyframes daylight-drift {
+    from {
+      transform: translate3d(-2%, 0, 0);
+      opacity: 0.65;
+    }
+    to {
+      transform: translate3d(2%, 2%, 0);
+      opacity: 1;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="light"] .daylight-atmosphere::before {
+    animation: none;
+  }
+  .daylight-shooting-star {
+    display: none;
+    animation: none;
+  }
+}

@@ -1,0 +1,585 @@
+@media screen {
+  .app-shell .main-content:has(.invoice-editor) {
+    padding-top: 8px;
+  }
+  .app-shell:has(.invoice-editor) .workspace-bar {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  .invoice-editor {
+    max-width: 1320px;
+    margin-inline: auto;
+  }
+  .invoice-editor .composer-heading {
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 20px;
+  }
+  .invoice-editor .composer-heading h1 {
+    font-size: clamp(24px, 2.4vw, 30px);
+    letter-spacing: -0.045em;
+  }
+  .invoice-editor .composer-heading p {
+    max-width: 540px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .invoice-editor .composer-heading .breadcrumb {
+    margin-bottom: 8px;
+  }
+  .composer-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    align-items: start;
+    gap: 24px;
+  }
+  .composer-edit-column {
+    min-width: 0;
+    display: grid;
+    gap: 20px;
+  }
+  .composer-fields {
+    display: grid;
+    gap: 20px;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+  }
+  .composer-section {
+    padding: 26px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    min-width: 0;
+  }
+  .composer-section-heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+    margin-bottom: 24px;
+  }
+  .composer-section-heading > span {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--muted);
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+  }
+  .composer-section-heading h2 {
+    font-size: 17px;
+    letter-spacing: -0.02em;
+    line-height: 1.5;
+  }
+  .composer-section-heading p {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 3px;
+    line-height: 1.7;
+  }
+  .composer-client-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .composer-client-label button {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    min-height: 44px;
+    font-size: 12px;
+    color: var(--accent-text);
+    cursor: pointer;
+  }
+  .composer-project-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 110px;
+    gap: 16px;
+    margin-top: 20px;
+  }
+  .composer-dates {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+  }
+  .invoice-editor label {
+    font-size: 12px;
+    gap: 9px;
+    color: var(--text-secondary);
+    min-width: 0;
+  }
+  .invoice-editor :is(input, select, textarea) {
+    font-size: 16px;
+    min-width: 0;
+    min-height: 46px;
+    border-radius: 9px;
+    background: var(--input);
+  }
+  .composer-items {
+    display: grid;
+    gap: 18px;
+  }
+  .composer-item {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 20px;
+  }
+  .composer-item:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+  .composer-item-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .composer-item-heading > span {
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .composer-item-heading .button {
+    width: 44px;
+    height: 44px;
+    min-height: 44px;
+    padding: 0;
+    box-shadow: none;
+  }
+  .composer-item-numbers {
+    display: grid;
+    grid-template-columns: minmax(0, 0.7fr) minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: 14px;
+    margin-top: 14px;
+    align-items: end;
+  }
+  .composer-line-total {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    text-align: right;
+    min-width: 0;
+  }
+  .composer-line-total > span {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .composer-line-total > strong {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 46px;
+    font-size: 15px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+  }
+  .invoice-editor .composer-add-item {
+    margin-top: 22px;
+    width: 100%;
+    border: 1px dashed var(--border);
+    background: transparent;
+    border-radius: 9px;
+    color: var(--accent-text);
+    box-shadow: none;
+  }
+  .composer-summary {
+    position: static;
+    min-width: 0;
+    padding: 24px;
+    border: 1px solid var(--border);
+    background: var(--panel);
+    border-radius: 18px;
+  }
+  .composer-summary-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .composer-summary-title svg {
+    color: var(--accent-text);
+  }
+  .composer-summary-title h2 {
+    font-size: 17px;
+  }
+  .composer-number {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 8px;
+    overflow-wrap: anywhere;
+  }
+  .composer-breakdown {
+    display: grid;
+    gap: 16px;
+    margin-top: 30px;
+  }
+  .composer-breakdown > div {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 13px;
+  }
+  .composer-breakdown dt {
+    color: var(--muted);
+  }
+  .composer-breakdown dd {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+    min-width: 0;
+  }
+  .composer-adjustments {
+    margin-top: 18px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 16px;
+  }
+  .composer-adjustments summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    cursor: pointer;
+    color: var(--accent-text);
+    font-size: 12px;
+    list-style: none;
+  }
+  .composer-adjustments summary::-webkit-details-marker {
+    display: none;
+  }
+  .composer-adjustments[open] summary svg {
+    transform: rotate(180deg);
+  }
+  .composer-adjustment-fields {
+    display: grid;
+    gap: 16px;
+    min-width: 0;
+    border: 0;
+    margin: 8px 0 0;
+    padding: 0;
+  }
+  .composer-grand-total {
+    display: grid;
+    gap: 10px;
+    padding-block: 22px;
+  }
+  .composer-grand-total > span {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 13px;
+  }
+  .composer-grand-total small {
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .composer-grand-total strong {
+    font-size: 32px;
+    letter-spacing: -0.045em;
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+    line-height: 1.3;
+  }
+  .composer-save-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .composer-save-actions > :first-child {
+    order: 2;
+  }
+  .composer-live-preview {
+    min-width: 0;
+    position: sticky;
+    top: 24px;
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+  .composer-preview-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 0 8px 4px;
+    border-bottom: 0;
+  }
+  .composer-preview-header > div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .composer-preview-header h2 {
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .composer-preview-header .button {
+    width: auto;
+    height: 44px;
+    padding: 0 12px;
+    flex-shrink: 0;
+  }
+  .composer-preview-scroll {
+    max-height: none;
+    overflow: visible;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  .composer-preview-scroll:focus-visible {
+    outline: 2px solid var(--accent-text);
+    outline-offset: -3px;
+  }
+  .composer-preview-stage.composer-live-stage {
+    padding: 0 8px 16px;
+    border-radius: 0;
+    background: transparent;
+  }
+  .composer-paper-caption {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 4px;
+    font-size: 10px;
+    color: var(--muted);
+  }
+  .composer-paper-caption > span:first-child {
+    overflow-wrap: anywhere;
+  }
+  .composer-paper-caption > span:last-child {
+    flex-shrink: 0;
+  }
+  .composer-preview-stage .invoice-paper {
+    --surface: #fffefa;
+    --surface-soft: #f7f5ef;
+    --text-strong: #30392f;
+    --text-secondary: #565c53;
+    --text-muted: #767a70;
+    --muted: #767a70;
+    --accent-text: #365d48;
+    --success-text: #28725b;
+    --line: #e5e7dd;
+    --border: #e5e7dd;
+    background: #fffefa;
+    color: #30392f;
+    border-radius: 3px;
+    box-shadow:
+      0 3px 8px #18241b08,
+      0 16px 30px #18241b14;
+  }
+  .composer-preview-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+    padding: 16px 20px;
+    border-top: 0;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .composer-preview-footer svg {
+    color: #6c977d;
+  }
+  .invoice-depth-stage {
+    perspective: 2400px;
+    padding: 12px 8px 24px;
+  }
+  .invoice-depth-sheet {
+    position: relative;
+    transform: rotateX(var(--paper-x, 0deg)) rotateY(var(--paper-y, -2deg));
+    transform-style: preserve-3d;
+    transition: transform 0.35s ease-out;
+    isolation: isolate;
+  }
+  .invoice-depth-sheet::before,
+  .invoice-depth-sheet::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border: 1px solid #d6d9d1;
+    border-radius: 4px;
+    background: #efefe8;
+    z-index: -1;
+  }
+  .invoice-depth-sheet::before {
+    transform: translate(7px, 9px) translateZ(-2px);
+  }
+  .invoice-depth-sheet::after {
+    transform: translate(3px, 4px) translateZ(-1px);
+    background: #f9f9f3;
+  }
+  .composer-live-stage .invoice-depth-sheet > .invoice-paper {
+    position: relative;
+    border: 1px solid #7c867326;
+    box-shadow:
+      0 2px 3px #18241b12,
+      8px 22px 34px -12px #18241b3b,
+      16px 36px 60px -28px #18241b40;
+  }
+  .invoice-editor .composer-save-actions .button {
+    width: 100%;
+    min-height: 48px;
+    white-space: normal;
+    box-shadow: none;
+    border-radius: 10px;
+  }
+  .composer-save-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-top: 18px;
+  }
+  .composer-save-note svg {
+    margin-top: 3px;
+  }
+  .dialog.composer-preview-dialog {
+    width: 880px;
+    max-width: calc(100vw - 32px);
+    max-height: 90dvh;
+    margin: auto;
+    border-radius: 18px;
+    padding: 24px;
+  }
+  .composer-preview-stage {
+    background: var(--stage);
+    padding: 20px;
+    border-radius: 10px;
+  }
+  .composer-preview-stage .invoice-paper {
+    width: 100%;
+    min-width: 0;
+  }
+  .invoice-editor fieldset:disabled {
+    opacity: 0.65;
+  }
+}
+@media screen and (max-width: 1100px) {
+  .composer-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+  .composer-summary {
+    position: static;
+  }
+  .composer-live-preview {
+    position: static;
+  }
+  .composer-preview-scroll {
+    max-height: none;
+  }
+  .composer-preview-stage.composer-live-stage {
+    padding: 0 8px 16px;
+  }
+  .composer-live-stage .invoice-paper {
+    max-width: 720px;
+    margin-inline: auto;
+  }
+  .composer-paper-caption {
+    max-width: 720px;
+    margin-inline: auto;
+  }
+  .composer-save-actions {
+    grid-template-columns: 1fr 1fr;
+  }
+  .composer-save-actions > :first-child {
+    order: 2;
+  }
+  .composer-grand-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+  .composer-grand-total > span {
+    flex-direction: column;
+    gap: 4px;
+  }
+  .composer-adjustment-fields {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media screen and (max-width: 600px) {
+  .composer-preview-stage.composer-live-stage {
+    padding: 0 4px 12px;
+  }
+  .composer-preview-header {
+    padding: 0 8px 4px;
+  }
+  .composer-preview-footer {
+    font-size: 10px;
+    padding: 14px;
+  }
+  .invoice-editor .composer-heading {
+    margin-bottom: 22px;
+  }
+  .invoice-editor .composer-heading > .button {
+    width: auto;
+  }
+  .composer-section,
+  .composer-summary {
+    padding: 20px;
+    border-radius: 14px;
+  }
+  .composer-section-heading {
+    margin-bottom: 18px;
+  }
+  .composer-project-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .composer-item-numbers {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .composer-line-total {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .composer-line-total > strong {
+    min-height: 30px;
+  }
+  .composer-dates {
+    gap: 12px;
+  }
+  .composer-grand-total strong {
+    font-size: 28px;
+  }
+  .composer-save-actions,
+  .composer-adjustment-fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .composer-save-actions > :first-child {
+    order: 0;
+  }
+  .dialog.composer-preview-dialog {
+    padding: 16px;
+    max-width: calc(100vw - 16px);
+  }
+  .composer-preview-stage {
+    padding: 8px;
+  }
+}
+@media screen and (hover: none), screen and (prefers-reduced-motion: reduce) {
+  .invoice-depth-sheet {
+    transform: none;
+    transition: none;
+  }
+}
+@media screen and (max-width: 374px) {
+  .composer-dates {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

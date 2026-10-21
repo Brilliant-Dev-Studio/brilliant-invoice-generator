@@ -1,0 +1,280 @@
+.app-shell .topbar .nav-link .nav-label-short {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  html[lang] .app-shell .topbar a.nav-link,
+  html[lang] .app-shell .topbar a.nav-link::before,
+  html[lang] .app-shell .topbar a.nav-link svg,
+  html[lang] .app-shell .topbar a.nav-link .nav-label-short {
+    transition: none;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1366px) {
+  html[lang] .client-workspace .topbar .nav-link {
+    display: grid;
+    grid-template-rows: 24px 24px;
+    justify-items: center;
+    align-items: center;
+    justify-content: stretch;
+    min-height: 76px;
+    padding: 10px 2px;
+    gap: 6px;
+    font-size: 11px;
+    line-height: 24px;
+    text-align: center;
+  }
+  .client-workspace .topbar .nav-link .nav-label-full {
+    display: none;
+  }
+  .client-workspace .topbar .nav-link .nav-label-short {
+    display: block;
+    white-space: nowrap;
+    letter-spacing: 0;
+  }
+  .app-shell .main-content > .companion-slot {
+    position: relative;
+    inset: auto;
+    z-index: 0;
+    width: 100%;
+    margin-top: 24px;
+  }
+  .app-shell .companion-slot .account-companion {
+    position: relative;
+    left: 0;
+    bottom: auto;
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr);
+    align-items: end;
+    gap: 16px;
+    width: min(540px, 100%);
+    min-height: 110px;
+  }
+  .app-shell .account-companion > button {
+    position: absolute;
+    inset: auto auto 0 0;
+    width: 120px;
+    margin: 0;
+  }
+  .app-shell .account-companion .companion-speech {
+    grid-column: 2;
+    margin: 0;
+    width: 100%;
+    min-width: 0;
+  }
+}
+@media screen and (max-width: 767px) {
+  .app-shell,
+  .app-shell.client-workspace {
+    padding-bottom: calc(128px + env(safe-area-inset-bottom));
+  }
+  .app-shell .topbar nav {
+    z-index: 60;
+    bottom: calc(16px + env(safe-area-inset-bottom));
+    width: calc(100% - 32px);
+    max-width: 440px;
+    align-items: stretch;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    padding: 6px 8px;
+    gap: 4px;
+    border-radius: 22px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    box-shadow:
+      0 12px 32px #28201333,
+      inset 0 1px 0 #ffffff40;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  html[data-theme="light"] .app-shell .topbar nav {
+    background: #fff9ee;
+    border-color: #e1d2bb;
+  }
+  html[data-theme="dark"] .app-shell .topbar nav {
+    background: #1b2635;
+    border-color: #455369;
+  }
+  html[lang] .app-shell .topbar .nav-link {
+    display: grid;
+    position: relative;
+    isolation: isolate;
+    grid-template-rows: 28px 22px;
+    min-height: 58px;
+    padding: 3px 2px;
+    gap: 4px;
+    font-size: 10px;
+    line-height: 1.8;
+    justify-content: stretch;
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+    border: 0;
+    border-radius: 18px;
+    background: transparent;
+    box-shadow: none;
+    color: var(--muted);
+    transition: color 280ms ease;
+  }
+  html[lang] .app-shell .topbar .nav-link::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: -14px;
+    left: 50%;
+    width: 44px;
+    height: 44px;
+    border: 4px solid var(--panel);
+    border-radius: 50%;
+    transform: translate(-50%, 9px) scale(0.8);
+    background: var(--accent-soft);
+    opacity: 0;
+    transition:
+      opacity 280ms ease,
+      transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 320ms ease;
+  }
+  html[lang] .app-shell .topbar .nav-link.active {
+    color: var(--accent-text);
+    font-weight: 600;
+  }
+  html[lang] .app-shell .topbar .nav-link.active::before {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+  html[data-theme="light"] .app-shell .topbar .nav-link.active {
+    color: #99492f;
+  }
+  html[data-theme="light"] .app-shell .topbar .nav-link.active::before {
+    background: linear-gradient(145deg, #b96947, #99492f);
+    border-color: #fff9ee;
+    box-shadow: 0 4px 9px #99492f30;
+  }
+  html[lang] .app-shell .topbar .nav-link.active svg {
+    transform: translateY(-11px);
+    color: var(--foreground);
+  }
+  html[data-theme="light"] .app-shell .topbar .nav-link.active svg {
+    color: #fff9ee;
+  }
+  html[data-theme="dark"] .app-shell .topbar .nav-link.active::before {
+    background: linear-gradient(145deg, #f0d498, #c9a362);
+    border-color: #1b2635;
+    box-shadow: 0 4px 12px #0003;
+  }
+  html[data-theme="dark"] .app-shell .topbar .nav-link.active svg {
+    color: #263140;
+  }
+  html[lang] .app-shell .topbar .nav-link:focus-visible {
+    outline: 2px solid var(--accent-text);
+    outline-offset: 1px;
+  }
+  .app-shell .topbar .nav-link svg {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    stroke-width: 1.8;
+    transform: translateY(0);
+    transition:
+      transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+      color 280ms ease;
+  }
+  .app-shell .topbar .nav-link .nav-label-full {
+    display: none;
+  }
+  .app-shell .topbar .nav-link .nav-label-short {
+    display: block;
+    white-space: nowrap;
+    line-height: 22px;
+    letter-spacing: 0;
+    text-align: center;
+  }
+  .app-shell .main-content > .companion-slot {
+    position: relative;
+    inset: auto;
+    z-index: 0;
+    width: 100%;
+    margin: 24px 0 0;
+  }
+  .app-shell .companion-slot .account-companion {
+    position: relative;
+    left: 0;
+    bottom: auto;
+    display: grid;
+    grid-template-columns: 80px minmax(0, 1fr);
+    align-items: end;
+    gap: 10px;
+    width: 100%;
+    min-height: 90px;
+  }
+  .app-shell .account-companion > button {
+    position: absolute;
+    inset: auto auto 0 0;
+    width: 80px;
+    margin: 0;
+    align-self: end;
+  }
+  .app-shell .account-companion .companion-speech {
+    grid-column: 2;
+    position: relative;
+    margin: 0;
+    width: 100%;
+    min-width: 0;
+    border-radius: 18px 18px 18px 4px;
+    padding: 14px 32px 14px 14px;
+  }
+}
+@media screen and (max-width: 400px) {
+  .app-shell .companion-slot .account-companion {
+    grid-template-columns: minmax(0, 1fr);
+    padding-bottom: 80px;
+  }
+  .app-shell .account-companion .companion-speech {
+    grid-column: 1;
+    grid-row: 1;
+  }
+}
+
+/* The overlay follows the viewport; its mascot is absolute within that layer. */
+@media screen and (max-width: 1366px) {
+  .app-shell .main-content > .companion-slot {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    width: auto;
+    margin: 0;
+    pointer-events: none;
+  }
+  .app-shell .companion-slot .account-companion {
+    position: absolute;
+    left: max(12px, env(safe-area-inset-left));
+    bottom: calc(
+      var(--companion-nav-clearance, 100px) + 12px + env(safe-area-inset-bottom)
+    );
+    display: grid;
+    grid-template-columns: 80px minmax(0, 1fr);
+    gap: 10px;
+    width: min(460px, calc(100% - 24px));
+    min-height: 80px;
+    padding: 0;
+  }
+  .app-shell .account-companion > button {
+    position: absolute;
+    inset: auto auto 0 0;
+    width: 90px;
+    margin: 0;
+  }
+  .app-shell .account-companion .companion-speech {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0;
+    max-height: min(300px, 45svh);
+    overflow-y: auto;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1366px) {
+  .client-workspace .companion-slot .account-companion {
+    left: calc(var(--rail-width, 100px) + 12px + env(safe-area-inset-left));
+    width: min(460px, calc(100% - var(--rail-width, 100px) - 36px));
+  }
+}

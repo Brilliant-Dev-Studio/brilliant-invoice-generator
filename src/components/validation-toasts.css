@@ -1,0 +1,61 @@
+.validation-toast {
+  position: fixed;
+  z-index: 10000;
+  bottom: max(24px, env(safe-area-inset-bottom));
+  right: 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: min(420px, calc(100vw - 32px));
+  padding: 18px;
+  border: 1px solid #b4503945;
+  border-left: 4px solid #b45039;
+  border-radius: 14px;
+  background: var(--panel, #fffefa);
+  color: var(--foreground);
+  box-shadow: 0 12px 40px #231b2029;
+}
+.validation-toast > svg {
+  flex-shrink: 0;
+  color: #b45039;
+}
+.validation-toast strong {
+  font-size: 14px;
+}
+.validation-toast p {
+  font-size: 12px;
+  margin-top: 5px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+.validation-toast button {
+  flex-shrink: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  padding: 8px;
+  cursor: pointer;
+}
+.input-validation-error {
+  display: block;
+  color: #b45039;
+  font-size: 12px;
+  line-height: 1.7;
+  margin-top: 5px;
+}
+input[aria-invalid="true"],
+select:user-invalid,
+textarea:user-invalid {
+  border-color: #b45039 !important;
+}
+@media (max-width: 767px) {
+  .validation-toast {
+    right: 16px;
+    bottom: calc(88px + env(safe-area-inset-bottom));
+  }
+}
+@media print {
+  .validation-toast {
+    display: none;
+  }
+}

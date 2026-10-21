@@ -1,0 +1,40 @@
+export function Brand({ compact = false }: { compact?: boolean }) {
+  return (
+    <span className="brand" aria-label="စံပြ · San Pya Invoice">
+      <svg
+        className="san-pya-symbol"
+        viewBox="0 0 64 64"
+        fill="none"
+        aria-hidden="true"
+      >
+        <rect x="3" y="3" width="58" height="58" rx="19" fill="currentColor" />
+        <path
+          d="M20 14h18l9 10v25l-6-3-6 3-6-3-6 3-6-3V17a3 3 0 0 1 3-3Z"
+          fill="#fff7e7"
+        />
+        <path d="M38 14v7a3 3 0 0 0 3 3h6" fill="#e6c398" />
+        <path
+          d="M24 25h7M24 32h15M24 39h9"
+          stroke="currentColor"
+          strokeWidth="3"
+          strokeLinecap="round"
+        />
+        <path
+          d="m47 5 2.8 7.2L57 15l-7.2 2.8L47 25l-2.8-7.2L37 15l7.2-2.8Z"
+          fill="#f1cc7a"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
+      </svg>
+      {!compact && (
+        <span className="san-pya-wordmark">
+          <span lang="my" className="san-pya-name">
+            စံပြ
+          </span>
+          <small lang="en">San Pya Invoice</small>
+        </span>
+      )}
+    </span>
+  );
+}

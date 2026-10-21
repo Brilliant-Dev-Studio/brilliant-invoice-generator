@@ -1,0 +1,228 @@
+:root {
+  --font-myanmar-ui: "Hanken Grotesk Variable", var(--font-myanmar), sans-serif;
+}
+html[lang="my"] {
+  --font-body: var(--font-myanmar-ui);
+  --font-heading: var(--font-myanmar-ui);
+}
+.language-switcher :lang(my) {
+  font-family: var(--font-myanmar-ui);
+}
+.invoice-paper {
+  --font-body: "Hanken Grotesk Variable", var(--font-myanmar), sans-serif;
+  --font-heading:
+    "Bricolage Grotesque Variable", var(--font-myanmar), sans-serif;
+}
+.workspace-tools {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+:is(.app-shell, .login-page) .language-switcher {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin: 0;
+  gap: 0;
+}
+:is(.app-shell, .login-page) .language-switcher > svg {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  z-index: 1;
+  pointer-events: none;
+  color: var(--muted);
+}
+:is(.app-shell, .login-page) .language-switcher select {
+  width: 116px;
+  height: 44px;
+  min-height: 44px;
+  padding: 5px 24px 5px 34px;
+  font-size: 14px;
+  line-height: 1.8;
+  border-radius: 10px;
+  border-color: var(--border);
+  background-color: var(--panel);
+  color: var(--foreground);
+  box-shadow: none;
+}
+.language-switcher[aria-busy="true"] {
+  opacity: 0.6;
+}
+@media screen {
+  .app-shell .workspace-bar {
+    gap: 20px;
+    min-height: 64px;
+    padding-block: 10px;
+    flex-wrap: nowrap;
+  }
+  .app-shell .workspace-identity {
+    flex: 1;
+    min-width: 0;
+    gap: 8px;
+  }
+  .workspace-company {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 12px;
+    line-height: 1.8;
+  }
+  .app-shell .workspace-dot {
+    flex: 0 0 6px;
+  }
+  .app-shell .account {
+    gap: 10px;
+    align-items: center;
+  }
+  .app-shell .account .icon-button {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    padding: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    line-height: 1;
+  }
+  .app-shell .account-name {
+    line-height: 1.5;
+  }
+  .app-shell .account-name small {
+    margin-top: 3px;
+    line-height: 1.8;
+  }
+  html[lang="my"] :is(.app-shell, .login-page, dialog) {
+    font-family: var(--font-myanmar-ui);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.85;
+    font-synthesis: none;
+  }
+  html[lang="my"]
+    :is(.app-shell, .login-page, dialog)
+    :is(h1, h2, h3, h4, button, input, select, textarea) {
+    font-family: inherit;
+    letter-spacing: normal;
+    line-height: 1.8;
+  }
+  html[lang="my"] :is(.app-shell, .login-page, dialog) :is(h1, h2, h3, h4) {
+    font-weight: 600;
+    line-height: 1.65;
+    text-wrap: pretty;
+  }
+  html[lang="my"]
+    :is(.app-shell, .login-page, dialog)
+    :is(label, .button, .nav-link, summary) {
+    font-weight: 500;
+  }
+  html[lang="my"]
+    :is(.app-shell, .login-page, dialog)
+    :is(input, textarea, select) {
+    font-weight: 400;
+  }
+  html[lang="my"]
+    :is(.eyebrow, .insight-kicker, .workspace-caption, .nav-link, .status) {
+    letter-spacing: normal;
+  }
+  html[lang="my"]
+    :is(.app-shell, .login-page, dialog)
+    :is(.button, .nav-link, .status) {
+    white-space: normal;
+  }
+  html[lang="my"] .app-shell .nav-link {
+    font-size: 12px;
+  }
+  html[lang="my"] .app-shell .page-heading h1 {
+    font-size: clamp(24px, 2.6vw, 32px);
+  }
+  html[lang="my"] :is(.insight-kicker, .eyebrow) {
+    font-size: 11px;
+    font-weight: 500;
+  }
+  html[lang="my"] .app-shell .account-name small {
+    font-size: 11px;
+    font-weight: 400;
+  }
+  html[lang="my"]
+    .app-shell
+    :is(
+      .stat-card > strong,
+      .composer-grand-total strong,
+      .revenue-amount strong
+    ) {
+    font-family: "Hanken Grotesk Variable", sans-serif;
+    letter-spacing: -0.025em;
+    font-variant-numeric: tabular-nums;
+  }
+  html[lang="my"] .app-shell .section-heading {
+    flex-wrap: wrap;
+  }
+  html[lang="my"] .app-shell .brand {
+    font-family: "Bricolage Grotesque Variable", sans-serif;
+  }
+  html[lang="my"] .app-shell .invoice-paper {
+    font-family: var(--font-body);
+  }
+  html[lang="my"] .login-page .login-story-content {
+    padding-block: 32px 28px;
+  }
+  html[lang="my"] .login-page .login-story h1 {
+    font-size: clamp(28px, 2.8vw, 42px);
+    line-height: 1.55;
+    margin-top: 8px;
+    text-wrap: pretty;
+  }
+  html[lang="my"] .login-page .login-form-wrap h2 {
+    font-size: clamp(24px, 2vw, 28px);
+    line-height: 1.6;
+    text-wrap: pretty;
+  }
+  html[lang="my"] .login-page .login-story-content > p {
+    font-size: 14px;
+    line-height: 1.8;
+    margin-top: 16px;
+  }
+  html[lang="my"] .login-page .login-art {
+    margin-top: 28px;
+  }
+  html[lang="my"] .login-page .login-intro {
+    font-size: 14px;
+    line-height: 1.8;
+    margin: 10px 0 24px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .app-shell .workspace-bar {
+    gap: 10px;
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+  .app-shell .workspace-bar > span:first-child {
+    flex: 1;
+  }
+  .login-brand-row {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  html[lang="my"] .login-page .login-story-content {
+    padding-block: 24px 10px;
+  }
+  html[lang="my"] .login-page .login-story h1 {
+    font-size: clamp(26px, 5.5vw, 34px);
+  }
+  html[lang="my"] .app-shell .topbar .nav-link {
+    font-size: 11px;
+    line-height: 1.8;
+  }
+  html[lang="my"] .app-shell .topbar nav {
+    align-items: stretch;
+  }
+}
