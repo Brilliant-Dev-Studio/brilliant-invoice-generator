@@ -359,6 +359,12 @@ export const platformMyanmar: Record<string, string> = {
   "Edit & issue draft": "မူကြမ်းပြင်ဆင်ပြီး ထုတ်ပေးရန်",
   Print: "ပုံနှိပ်ရန်",
   "Download PDF": "PDF ဒေါင်းလုဒ်ရန်",
+  "Prepare PDF": "PDF ပြင်ဆင်ရန်",
+  "Share PDF": "PDF မျှဝေရန်",
+  "Could not share PDF. Please use Download PDF.":
+    "PDF မျှဝေ၍ မရပါ။ PDF ဒေါင်းလုဒ်ရန်ကို အသုံးပြုပါ။",
+  "PDF ready. Tap Download PDF to save it, or Share PDF to choose where to save it.":
+    "PDF အသင့်ဖြစ်ပါပြီ။ သိမ်းဆည်းရန် PDF ဒေါင်းလုဒ်ရန်ကို နှိပ်ပါ၊ သို့မဟုတ် သိမ်းဆည်းမည့်နေရာရွေးရန် PDF မျှဝေရန်ကို နှိပ်ပါ။",
   "Preparing PDF...": "PDF ပြင်ဆင်နေသည်...",
   "Mark paid": "ပေးချေပြီးဟု မှတ်ရန်",
   "FROM GREAT WORK TO": "သင့်လုပ်ငန်းအတွက်",
