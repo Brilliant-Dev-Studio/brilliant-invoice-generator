@@ -57,7 +57,15 @@ The business date and monthly revenue timezone are **Asia/Yangon**. An unpaid in
 
 ## PDF download
 
-Install the browser executable on the machine running the app:
+On Vercel, PDF export uses the bundled `@sparticuz/chromium` executable. Next.js
+includes its compressed browser files in the PDF function deployment, and the
+function extracts them into temporary storage at runtime. No Playwright browser
+installation command is needed on Vercel. Leave `CHROMIUM_EXECUTABLE_PATH` unset
+there and set `APP_URL` to the deployed app's trusted HTTPS origin. Redeploy after
+changing dependencies or environment variables.
+
+For local development or a conventional server, install the browser executable
+on the machine running the app:
 
 ```sh
 npx playwright install chromium
@@ -68,6 +76,12 @@ npx playwright install --with-deps chromium
 Alternatively set `CHROMIUM_EXECUTABLE_PATH` to an installed compatible Chrome/Chromium executable. Set `APP_URL` to the app's trusted origin, reachable by the server itself. It must not come from request headers. Local development uses `http://localhost:3000`; production must use HTTPS.
 
 PDF export launches a short-lived headless browser, renders the authenticated print route, waits for fonts/images, and returns a downloadable A4 PDF. Browser Print remains available if Chromium is not installed. Missing/broken branding images cause PDF generation to fail visibly rather than silently omit a QR or signature.
+
+If export fails, look for `Invoice PDF export failed` in the server/function logs.
+The logged `stage` identifies browser startup, invoice navigation, font/image
+loading, watermark verification, or PDF rendering; the underlying error stays in
+the server logs. The `APP_URL` must be reachable by the function, including any
+deployment protection rules.
 
 ## Platform languages
 

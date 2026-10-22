@@ -2,7 +2,10 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   devIndicators: { position: "top-right" },
   turbopack: { root: process.cwd() },
-  serverExternalPackages: ["pg", "playwright", "sharp"],
+  serverExternalPackages: ["pg", "playwright", "sharp", "@sparticuz/chromium"],
+  outputFileTracingIncludes: {
+    "/api/invoices/*/pdf": ["./node_modules/@sparticuz/chromium/bin/**/*"],
+  },
   experimental: { serverActions: { bodySizeLimit: "6mb" } },
   async headers() {
     return [

@@ -22,11 +22,21 @@ export async function GET(
       { status: 503 },
     );
   let browser;
+  let stage = "launch-browser";
   try {
+    const customExecutable = process.env.CHROMIUM_EXECUTABLE_PATH;
+    // Vercel has no Playwright browser cache; unpack the bundled Linux binary.
+    const serverlessChromium =
+      process.env.VERCEL === "1" && !customExecutable
+        ? (await import("@sparticuz/chromium")).default
+        : undefined;
     browser = await chromium.launch({
       headless: true,
-      executablePath: process.env.CHROMIUM_EXECUTABLE_PATH || undefined,
+      args: serverlessChromium?.args,
+      executablePath:
+        customExecutable || (await serverlessChromium?.executablePath()),
     });
+    stage = "configure-browser";
     const context = await browser.newContext();
     await context.addCookies([
       {
@@ -39,20 +49,24 @@ export async function GET(
       },
     ]);
     const page = await context.newPage();
+    stage = "load-invoice";
     const response = await page.goto(
       `${base.replace(/\/$/, "")}/dashboard/invoices/${id}/print`,
       { waitUntil: "networkidle", timeout: 30000 },
     );
     if (!response?.ok() || !page.url().includes(`/invoices/${id}/print`))
       throw new Error("Unauthorized print request.");
+    stage = "load-fonts-and-images";
     await page.evaluate(async () => {
       await document.fonts.ready;
       await Promise.all(
         Array.from(document.images).map((image) => image.decode()),
       );
     });
+    stage = "verify-watermark";
     if (user.isDemo && !(await page.locator(".demo-print-watermark").count()))
       throw new Error("Demo watermark is required for export.");
+    stage = "render-pdf";
     const pdf = await page.pdf({
       format: "A4",
       printBackground: true,
@@ -65,11 +79,14 @@ export async function GET(
         "Cache-Control": "private, no-store",
       },
     });
-  } catch {
+  } catch (error) {
+    // Preserve the server-side cause without exposing internal details to clients.
+    console.error("Invoice PDF export failed", { stage, error });
     return Response.json(
       {
         error:
           "PDF export is unavailable. Check the server Chromium installation, APP_URL, and invoice images. You can still use Print to save a PDF.",
+        stage,
       },
       { status: 503 },
     );
