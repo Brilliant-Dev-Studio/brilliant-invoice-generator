@@ -5,6 +5,28 @@ import { invoice } from "@/lib/db";
 import { COOKIE } from "@/lib/session";
 export const runtime = "nodejs";
 export const maxDuration = 60;
+const exportErrors = {
+  "launch-browser":
+    "PDF export failed: the server could not start the PDF browser. Reference: PDF-BROWSER.",
+  "configure-browser":
+    "PDF export failed: the server could not prepare the PDF browser. Reference: PDF-SETUP.",
+  "load-invoice":
+    "PDF export failed: the server could not load the invoice page. Reference: PDF-PAGE.",
+  "invoice-access":
+    "PDF export failed: access to the invoice page was denied. Reference: PDF-ACCESS.",
+  "invoice-response":
+    "PDF export failed: the invoice page returned an error. Reference: PDF-RESPONSE.",
+  "invoice-session":
+    "PDF export failed: the PDF browser could not open the authenticated invoice. Reference: PDF-SESSION.",
+  "load-fonts":
+    "PDF export failed: invoice fonts could not be loaded. Reference: PDF-FONTS.",
+  "load-images":
+    "PDF export failed: an invoice image could not be loaded. Check the logo, payment QR, and signature. Reference: PDF-IMAGES.",
+  "verify-watermark":
+    "PDF export failed: the required demo watermark is missing. Reference: PDF-WATERMARK.",
+  "render-pdf":
+    "PDF export failed: the invoice could not be converted to PDF. Reference: PDF-RENDER.",
+};
 export async function GET(
   _request: Request,
   { params }: { params: Promise<{ id: string }> },
@@ -22,7 +44,7 @@ export async function GET(
       { status: 503 },
     );
   let browser;
-  let stage = "launch-browser";
+  let stage: keyof typeof exportErrors = "launch-browser";
   try {
     const customExecutable = process.env.CHROMIUM_EXECUTABLE_PATH;
     // Vercel has no Playwright browser cache; unpack the bundled Linux binary.
@@ -54,11 +76,25 @@ export async function GET(
       `${base.replace(/\/$/, "")}/dashboard/invoices/${id}/print`,
       { waitUntil: "networkidle", timeout: 30000 },
     );
-    if (!response?.ok() || !page.url().includes(`/invoices/${id}/print`))
-      throw new Error("Unauthorized print request.");
-    stage = "load-fonts-and-images";
+    if (!response?.ok()) {
+      stage =
+        response && [401, 403].includes(response.status())
+          ? "invoice-access"
+          : "invoice-response";
+      throw new Error(
+        `Print page returned HTTP ${response?.status() ?? "no response"}.`,
+      );
+    }
+    if (new URL(page.url()).pathname !== `/dashboard/invoices/${id}/print`) {
+      stage = "invoice-session";
+      throw new Error("Print request redirected away from the invoice.");
+    }
+    stage = "load-fonts";
     await page.evaluate(async () => {
       await document.fonts.ready;
+    });
+    stage = "load-images";
+    await page.evaluate(async () => {
       await Promise.all(
         Array.from(document.images).map((image) => image.decode()),
       );
@@ -84,13 +120,14 @@ export async function GET(
     console.error("Invoice PDF export failed", { stage, error });
     return Response.json(
       {
-        error:
-          "PDF export is unavailable. Check the server Chromium installation, APP_URL, and invoice images. You can still use Print to save a PDF.",
+        error: exportErrors[stage],
         stage,
       },
       { status: 503 },
     );
   } finally {
-    await browser?.close();
+    await browser?.close().catch((error: unknown) => {
+      console.error("Invoice PDF browser cleanup failed", { error });
+    });
   }
 }
