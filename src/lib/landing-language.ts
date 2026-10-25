@@ -134,6 +134,30 @@ const myanmar: Record<string, string> = {
   "Close dialog": "ပိတ်ရန်",
   "Switch to light mode": "အလင်းရောင်ပုံစံသို့ ပြောင်းရန်",
   "Switch to dark mode": "အမှောင်ပုံစံသို့ ပြောင်းရန်",
+  "Download app": "အက်ပ်ဒေါင်းလုဒ်",
+  "ON YOUR PHONE & TABLET": "ဖုန်းနှင့် တက်ဘလက်တွင်",
+  "Download the San Pya app": "စံပြ အက်ပ်ကို ထည့်သွင်းပါ",
+  "Install San Pya on your home screen — no Play Store required. Same login, invoices, and PDF tools you already use in the browser.":
+    "Play Store မလိုဘဲ Home screen သို့ စံပြ ထည့်ပါ။ Browser တွင် သုံးနေသော login၊ ပြေစာနှင့် PDF လုပ်ဆောင်ချက်များ အတူတူပဲ။",
+  "Free install from your browser": "Browser မှ အခမဲ့ ထည့်သွင်းနိုင်",
+  "Works on Android and iPhone / iPad": "Android နှင့် iPhone / iPad တွင် အလုပ်လုပ်",
+  "Internet required — always up to date": "Internet လို — အမြဲ နောက်ဆုံးပေါ်",
+  "Install app": "အက်ပ် ထည့်သွင်းရန်",
+  "App installed — open from your home screen":
+    "ထည့်သွင်းပြီး — Home screen မှ ဖွင့်ပါ",
+  "Use the steps on the right, or open this page in Chrome on Android.":
+    "ညာဘက် အဆင့်များကို လိုက်ပါ၊ သို့မဟုတ် Android Chrome တွင် ဤစာမျက်နှာကို ဖွင့်ပါ။",
+  "Android (Chrome)": "Android (Chrome)",
+  "Open brilliant-invoice-generator.vercel.app in Chrome":
+    "Chrome တွင် brilliant-invoice-generator.vercel.app ကို ဖွင့်ပါ",
+  "Tap the menu (⋮) → Install app or Add to Home screen":
+    "Menu (⋮) → Install app သို့မဟုတ် Add to Home screen ကို နှိပ်ပါ",
+  "Open San Pya from your home screen": "Home screen မှ စံပြ ကို ဖွင့်ပါ",
+  "iPhone / iPad (Safari)": "iPhone / iPad (Safari)",
+  "Open the site in Safari": "Safari တွင် ဝဘ်ဆိုက်ကို ဖွင့်ပါ",
+  "Tap Share → Add to Home Screen": "Share → Add to Home Screen ကို နှိပ်ပါ",
+  "Tap Add — look for the San Pya icon":
+    "Add နှိပ်ပါ — စံပြ icon ကို ရှာပါ",
 };
 export function translate(locale: LandingLocale, text: string): string {
   return locale === "my" ? (myanmar[text] ?? text) : text;

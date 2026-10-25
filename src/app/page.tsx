@@ -18,10 +18,12 @@ import {
   Headphones,
   QrCode,
   ShieldCheck,
+  Smartphone,
   Sparkles,
 } from "lucide-react";
 import { Brand } from "@/components/brand";
 import { ThemeToggle } from "@/components/theme-provider";
+import { DownloadAppSection } from "@/components/download-app-section";
 import { PricingPlans } from "@/components/pricing-plans";
 import "./landing.css";
 
@@ -121,10 +123,18 @@ export default async function Home() {
           <a href="#features">{t("Features")}</a>
           <a href="#pricing">{t("Pricing")}</a>
           <a href="#how-it-works">{t("How it works")}</a>
+          <a href="#download-app">{t("Download app")}</a>
         </nav>
         <div className="landing-header-actions">
           <LanguageSwitcher locale={locale} />
           <ThemeToggle locale={locale} />
+          <a
+            className="button button-primary landing-header-download"
+            href="#download-app"
+          >
+            <Smartphone size={16} aria-hidden="true" />
+            {t("Download app")}
+          </a>
           <Link className="button button-secondary" href="/login">
             {t("Sign in")}
             <ArrowUpRight size={16} />
@@ -158,6 +168,10 @@ export default async function Home() {
             <div className="landing-hero-actions">
               <a className="button button-primary" href="#pricing">
                 {t("Find your plan")}
+                <ArrowDown size={17} />
+              </a>
+              <a className="button button-secondary" href="#download-app">
+                {t("Download app")}
                 <ArrowDown size={17} />
               </a>
               <a className="landing-quiet-link" href="#features">
@@ -359,6 +373,7 @@ export default async function Home() {
             </li>
           </ol>
         </section>
+        <DownloadAppSection locale={locale} />
         <section className="landing-closing" aria-labelledby="closing-title">
           <span className="landing-kicker">
             <Sparkles size={16} /> {t("MORE TIME FOR WHAT YOU DO BEST")}
@@ -391,6 +406,7 @@ export default async function Home() {
           <p>{t("Manage Invoices Smarter, Grow Your Business Faster")}</p>
         </div>
         <nav aria-label={t("Footer navigation")}>
+          <a href="#download-app">{t("Download app")}</a>
           <a href="#pricing">{t("Explore plans")}</a>
           <Link href="/login">
             {t("Sign in to your workspace")}
