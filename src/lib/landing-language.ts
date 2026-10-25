@@ -192,6 +192,30 @@ const myanmar: Record<string, string> = {
   "Or use Chrome menu (⋮) → Install app / Add to Home screen":
     "သို့မဟုတ် Chrome menu (⋮) → Install app / Add to Home screen သုံးပါ",
   "Refresh page to enable install": "ထည့်သွင်းနိုင်အောင် စာမျက်နှာ Refresh လုပ်ပါ",
+  "ANDROID APP": "ANDROID APP",
+  "Get San Pya on your phone": "ဖုန်းတွင် စံပြ ရယူပါ",
+  "Download the APK — the app opens the same San Pya workspace you use in the browser.":
+    "APK ဒေါင်းလုဒ် — အက်ပ်က browser တွင် သုံးသော စံပြ workspace ကို ဖွင့်ပေးမည်။",
+  "Tap Download APK": "APK ဒေါင်းလုဒ် နှိပ်ပါ",
+  "Install the file": "ဖိုင် ထည့်သွင်းပါ",
+  "Open the app and sign in": "အက်ပ် ဖွင့်၍ ဝင်ပါ",
+  "Or install from Chrome without APK": "APK မလို Chrome မှ ထည့်မလား",
+  "On Android Chrome you can add San Pya to your home screen without downloading a file.":
+    "Android Chrome တွင် ဖိုင်မဒေါင်းဘဲ Home screen သို့ ထည့်နိုင်ပါသည်။",
+  "App highlights": "အက်ပ် အချက်အလက်",
+  "Home screen app": "Home screen အက်ပ်",
+  "Same login & invoices": "Login နှင့် ပြေစာ တူညီ",
+  "Updates over the web": "ဝဘ်မှ အပ်ဒိတ်",
+  "iPhone / iPad:": "iPhone / iPad:",
+  "Safari → Share → Add to Home Screen":
+    "Safari → Share → Add to Home Screen",
+  "San Pya on your phone": "ဖုန်းတွင် စံပြ",
+  "Welcome back": "ပြန်လည်ကြိုဆိုပါတယ်",
+  "YOUR BUSINESS WORKSPACE": "သင့်လုပ်ငန်း စီမံခန့်ခွဲရာ",
+  "Monthly revenue": "လစဉ်ဝင်ငွေ",
+  "Recent invoices": "နောက်ဆုံးပြေစာများ",
+  "Paid": "ပေးပြီး",
+  "Draft": "မူကြမ်း",
   "ANDROID APP · WEB INSIDE": "ANDROID APP · ဝဘ်အတွင်းပါ",
   "Download the San Pya Android app": "စံပြ Android အက်ပ် ဒေါင်းလုဒ်လုပ်ပါ",
   "Install the APK like any app. Inside, you use the same San Pya website — login, invoices, and PDF.":

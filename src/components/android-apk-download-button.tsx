@@ -23,14 +23,9 @@ export function AndroidApkDownloadButton({
   const href = getAndroidApkDownloadUrl();
 
   const classes = [
-    variant === "section" ? "pwa-install-cta" : "button",
-    variant === "section"
-      ? ""
-      : variant === "header"
-        ? "button-primary"
-        : "button-secondary",
-    variant === "header" ? "landing-header-download" : "",
-    variant === "section" ? "pwa-install-cta-android" : "",
+    variant === "section" ? "landing-download-primary" : "button",
+    variant === "header" ? "button-primary landing-header-download" : "",
+    variant === "hero" ? "button-secondary" : "",
     className,
   ]
     .filter(Boolean)
@@ -38,7 +33,7 @@ export function AndroidApkDownloadButton({
 
   const iconSize = variant === "section" ? 26 : 18;
   const label =
-    variant === "section" ? t("Download APK — Android app") : t("Download APK");
+    variant === "section" ? t("Download APK") : t("Download APK");
 
   return (
     <a
