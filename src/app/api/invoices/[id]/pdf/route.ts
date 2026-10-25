@@ -1,8 +1,10 @@
+import { randomUUID } from "node:crypto";
+import { rm } from "node:fs/promises";
 import { chromium } from "playwright";
 import { cookies } from "next/headers";
 import { requireUser } from "@/lib/auth";
 import { invoice } from "@/lib/db";
-import { pdfAppUrl } from "@/lib/pdf-app-url";
+import { pdfRenderOrigin } from "@/lib/pdf-app-url";
 import { COOKIE } from "@/lib/session";
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -29,7 +31,7 @@ const exportErrors = {
     "PDF export failed: the invoice could not be converted to PDF. Reference: PDF-RENDER.",
 };
 export async function GET(
-  _request: Request,
+  request: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
   const user = await requireUser();
@@ -38,13 +40,17 @@ export async function GET(
   if (!data)
     return Response.json({ error: "Invoice not found." }, { status: 404 });
   const token = (await cookies()).get(COOKIE)?.value;
-  const base = pdfAppUrl();
-  if (!base)
+  let base: string;
+  try {
+    base = pdfRenderOrigin(request);
+  } catch {
     return Response.json(
       { error: "PDF export requires APP_URL to be configured." },
       { status: 503 },
     );
+  }
   let browser;
+  let userDataDir: string | undefined;
   let stage: keyof typeof exportErrors = "launch-browser";
   try {
     const customExecutable = process.env.CHROMIUM_EXECUTABLE_PATH;
@@ -53,9 +59,14 @@ export async function GET(
       process.env.VERCEL === "1" && !customExecutable
         ? (await import("@sparticuz/chromium")).default
         : undefined;
+    if (serverlessChromium) serverlessChromium.setGraphicsMode = false;
+    userDataDir = process.env.VERCEL ? `/tmp/pw-${randomUUID()}` : undefined;
     browser = await chromium.launch({
       headless: true,
-      args: serverlessChromium?.args,
+      args: [
+        ...(serverlessChromium?.args ?? []),
+        ...(userDataDir ? [`--user-data-dir=${userDataDir}`] : []),
+      ],
       executablePath:
         customExecutable || (await serverlessChromium?.executablePath()),
     });
@@ -159,7 +170,11 @@ export async function GET(
     });
   } catch (error) {
     // Preserve the server-side cause without exposing internal details to clients.
-    console.error("Invoice PDF export failed", { stage, error });
+    console.error("Invoice PDF export failed", {
+      stage,
+      base,
+      error,
+    });
     return Response.json(
       {
         error: exportErrors[stage],
@@ -171,5 +186,12 @@ export async function GET(
     await browser?.close().catch((error: unknown) => {
       console.error("Invoice PDF browser cleanup failed", { error });
     });
+    if (userDataDir) {
+      await rm(userDataDir, { recursive: true, force: true }).catch(
+        (error: unknown) => {
+          console.error("Invoice PDF user data cleanup failed", { error });
+        },
+      );
+    }
   }
 }
