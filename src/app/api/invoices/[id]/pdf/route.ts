@@ -1,4 +1,3 @@
-import { rm } from "node:fs/promises";
 import { cookies } from "next/headers";
 import { requireUser } from "@/lib/auth";
 import { launchPdfBrowser } from "@/lib/pdf-browser";
@@ -167,13 +166,5 @@ export async function GET(
     await browserSession?.browser.close().catch((error: unknown) => {
       console.error("Invoice PDF browser cleanup failed", { error });
     });
-    const userDataDir = browserSession?.userDataDir;
-    if (userDataDir) {
-      await rm(userDataDir, { recursive: true, force: true }).catch(
-        (error: unknown) => {
-          console.error("Invoice PDF user data cleanup failed", { error });
-        },
-      );
-    }
   }
 }

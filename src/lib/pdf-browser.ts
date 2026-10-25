@@ -1,9 +1,7 @@
-import { randomUUID } from "node:crypto";
 import type { Browser } from "playwright-core";
 
 export type PdfBrowserSession = {
   browser: Browser;
-  userDataDir?: string;
 };
 
 /** Launch Chromium for invoice PDF export (Vercel serverless vs local dev). */
@@ -17,13 +15,13 @@ export async function launchPdfBrowser(): Promise<PdfBrowserSession> {
     const serverless = (await import("@sparticuz/chromium")).default;
     serverless.setGraphicsMode = false;
     const { chromium } = await import("playwright-core");
-    const userDataDir = `/tmp/pw-${randomUUID()}`;
+    // Playwright rejects --user-data-dir in args; use Sparticuz defaults only.
     const browser = await chromium.launch({
       headless: true,
-      args: [...serverless.args, `--user-data-dir=${userDataDir}`],
+      args: serverless.args,
       executablePath: await serverless.executablePath(),
     });
-    return { browser, userDataDir };
+    return { browser };
   }
 
   const { chromium } = await import("playwright");

@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
     "@sparticuz/chromium",
   ],
   outputFileTracingIncludes: {
-    "/api/invoices/*/pdf": ["./node_modules/@sparticuz/chromium/bin/**/*"],
+    "/api/invoices/*/pdf": ["./node_modules/@sparticuz/chromium/**/*"],
   },
   experimental: { serverActions: { bodySizeLimit: "6mb" } },
   async headers() {
