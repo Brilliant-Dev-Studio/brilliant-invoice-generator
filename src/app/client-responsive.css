@@ -29,7 +29,7 @@
 /* A permanent rail gives iPad portrait and landscape the same navigation. */
 @media screen and (min-width: 768px) and (max-width: 1366px) {
   .client-workspace {
-    --rail-width: 100px;
+    --rail-width: 116px;
     padding-left: calc(var(--rail-width) + env(safe-area-inset-left));
     padding-right: env(safe-area-inset-right);
     padding-bottom: env(safe-area-inset-bottom);
@@ -51,36 +51,125 @@
     width: calc(var(--rail-width) + env(safe-area-inset-left));
     max-width: none;
     height: 100dvh;
-    padding: max(24px, env(safe-area-inset-top)) 12px
-      max(24px, env(safe-area-inset-bottom))
-      calc(12px + env(safe-area-inset-left));
+    padding: max(28px, env(safe-area-inset-top)) 10px
+      max(28px, env(safe-area-inset-bottom))
+      calc(10px + env(safe-area-inset-left));
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 12px;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 6px;
     overflow-y: auto;
     border: 0;
     border-right: 1px solid var(--border);
     border-radius: 0;
-    background: var(--panel);
-    box-shadow: none;
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--panel) 88%, var(--accent-soft)) 0%,
+      var(--panel) 22%,
+      var(--panel) 100%
+    );
+    box-shadow:
+      inset -1px 0 0 color-mix(in srgb, var(--border) 80%, transparent),
+      8px 0 32px #1a120812;
     z-index: 30;
   }
+  html[data-theme="light"] .client-workspace .topbar nav {
+    background: linear-gradient(180deg, #fffaf2 0%, #fff6e9 30%, #fff2e2 100%);
+    border-right-color: #e5d6c0;
+    box-shadow:
+      inset -1px 0 0 #eadfce,
+      10px 0 36px #a4513814;
+  }
+  html[data-theme="dark"] .client-workspace .topbar nav {
+    background: linear-gradient(180deg, #273445 0%, #1f2b3a 35%, #1a2432 100%);
+    border-right-color: #3d4f63;
+    box-shadow: 8px 0 28px #00000040;
+  }
   .client-workspace .topbar .nav-link {
+    position: relative;
     flex: 0 0 auto;
     flex-direction: column;
-    min-height: 72px;
-    gap: 8px;
-    padding: 12px 4px;
-    border-radius: 18px;
-    font-size: 11px;
+    width: min(96px, 100%);
+    margin-inline: auto;
+    min-height: 78px;
+    gap: 6px;
+    padding: 12px 8px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--muted);
+    transition:
+      background 220ms ease,
+      color 220ms ease,
+      box-shadow 220ms ease,
+      transform 220ms ease;
+  }
+  .client-workspace .topbar .nav-link::before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 50%;
+    width: 3px;
+    height: 0;
+    border-radius: 999px;
+    background: var(--accent-text);
+    transform: translateY(-50%);
+    opacity: 0;
+    transition:
+      height 260ms cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 200ms ease;
+  }
+  .client-workspace .topbar .nav-link:hover {
+    background: color-mix(in srgb, var(--accent-soft) 50%, transparent);
+    color: var(--foreground);
+  }
+  .client-workspace .topbar .nav-link.active {
+    background: var(--accent-soft);
+    color: var(--accent-text);
+    font-weight: 600;
+    box-shadow: 0 8px 20px color-mix(in srgb, var(--accent-text) 14%, transparent);
+  }
+  .client-workspace .topbar .nav-link.active::before {
+    height: 36px;
+    opacity: 1;
+  }
+  html[data-theme="light"] .client-workspace .topbar .nav-link.active {
+    background: linear-gradient(165deg, #f6ebe0 0%, #edd9c8 100%);
+    color: #8f432c;
+  }
+  html[data-theme="light"] .client-workspace .topbar .nav-link.active::before {
+    background: linear-gradient(180deg, #b96947, #99492f);
+  }
+  html[data-theme="dark"] .client-workspace .topbar .nav-link.active {
+    background: linear-gradient(165deg, #3a4d62 0%, #2f3f52 100%);
+    color: #f0d498;
   }
   .client-workspace .topbar .nav-link span {
     display: block;
   }
+  .client-workspace .topbar .nav-link .nav-label-short {
+    max-width: 100%;
+    text-align: center;
+    text-wrap: balance;
+  }
   .client-workspace .nav-link svg {
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
+    stroke-width: 1.85;
+    flex-shrink: 0;
+  }
+  .client-workspace .topbar .nav-link.active svg {
+    stroke-width: 2.15;
+    color: var(--accent-text);
+  }
+  .client-workspace .topbar .brand .san-pya-wordmark {
+    display: none;
+  }
+  .client-workspace .topbar .brand .san-pya-symbol {
+    width: 40px;
+    height: 40px;
   }
   .client-workspace .account-name {
     display: block;

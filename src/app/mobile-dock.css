@@ -11,16 +11,9 @@
 }
 @media screen and (min-width: 768px) and (max-width: 1366px) {
   html[lang] .client-workspace .topbar .nav-link {
-    display: grid;
-    grid-template-rows: 24px 24px;
-    justify-items: center;
+    display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: stretch;
-    min-height: 76px;
-    padding: 10px 2px;
-    gap: 6px;
-    font-size: 11px;
-    line-height: 24px;
     text-align: center;
   }
   .client-workspace .topbar .nav-link .nav-label-full {
@@ -28,7 +21,7 @@
   }
   .client-workspace .topbar .nav-link .nav-label-short {
     display: block;
-    white-space: nowrap;
+    white-space: normal;
     letter-spacing: 0;
   }
   .app-shell .main-content > .companion-slot {
