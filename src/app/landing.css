@@ -712,54 +712,56 @@
   line-height: 1.9;
 }
 .landing-download {
-  padding-top: 12px;
+  padding-top: 72px;
+}
+.landing-download .landing-section-heading {
+  margin-bottom: 36px;
+}
+.landing-download .landing-section-heading p {
+  max-width: 36rem;
+  margin-inline: auto;
 }
 .landing-download-card {
-  display: grid;
-  gap: 22px;
-  margin: 0 6%;
-  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 44px 48px 40px;
   border: 1px solid var(--border);
-  border-radius: 30px;
+  border-radius: 32px;
   background:
-    radial-gradient(ellipse at 0% 0%, var(--landing-peach), transparent 55%),
-    radial-gradient(ellipse at 100% 100%, var(--landing-mint), transparent 50%),
+    radial-gradient(ellipse at 50% 0%, var(--landing-peach), transparent 62%),
+    radial-gradient(ellipse at 80% 100%, var(--landing-mint), transparent 55%),
     var(--panel);
-  box-shadow: 0 18px 50px #1a120814;
+  box-shadow: 0 22px 56px #1a120812;
 }
-.landing-download-hero-install {
+.landing-download-spotlight {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 24px;
+  text-align: center;
+  gap: 28px;
   padding-bottom: 8px;
-  border-bottom: 1px solid var(--border);
 }
-.landing-download-brand {
+.landing-download-icon-wrap {
   display: flex;
   align-items: center;
-  gap: 20px;
-  flex: 1 1 280px;
+  justify-content: center;
+  width: 132px;
+  height: 132px;
+  border-radius: 36px;
+  background: color-mix(in srgb, var(--panel) 70%, var(--landing-butter));
+  border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  box-shadow: 0 16px 40px #a4513818;
 }
 .landing-download-app-icon {
-  border-radius: 22px;
-  box-shadow: 0 12px 28px #a4513828;
-  flex-shrink: 0;
-}
-.landing-download-kicker {
-  margin-bottom: 6px;
-}
-.landing-download-tagline {
-  margin: 10px 0 0;
-  max-width: 42ch;
-  font-size: 15px;
-  line-height: 1.75;
-  color: var(--text-secondary);
+  border-radius: 24px;
+  box-shadow: 0 8px 24px #a4513828;
 }
 .landing-download-cta-wrap {
-  flex: 0 1 auto;
-  min-width: min(100%, 320px);
+  width: 100%;
+  max-width: 400px;
 }
 .landing-download-ready {
   display: flex;
@@ -840,38 +842,42 @@
   border-color: #3ddc8466;
   background: color-mix(in srgb, #3ddc84 12%, var(--surface-soft));
 }
-.landing-download-meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 20px;
-}
-.landing-download-points {
+.landing-download-benefits {
   margin: 0;
   padding: 0;
   list-style: none;
   display: grid;
-  gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
 }
-.landing-download-points li {
+.landing-download-benefits li {
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
-  gap: 10px;
+  gap: 12px;
+  padding: 20px 18px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--panel) 92%, var(--surface-soft));
   font-size: 14px;
-  line-height: 1.7;
+  line-height: 1.75;
   color: var(--text-secondary);
 }
-.landing-download-points svg {
+.landing-download-benefits svg {
   flex-shrink: 0;
-  margin-top: 3px;
+  padding: 6px;
+  border-radius: 10px;
   color: var(--accent-text);
+  background: color-mix(in srgb, var(--accent-text) 12%, transparent);
 }
-.landing-download-actions {
+.landing-download-footer {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
+  padding-top: 28px;
+  border-top: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
+  text-align: center;
 }
 .landing-download-more {
   font-size: 13px;
@@ -888,10 +894,11 @@
   display: none;
 }
 .landing-download-more-body {
-  margin-top: 12px;
+  margin-top: 14px;
   display: grid;
-  gap: 12px;
-  max-width: 28rem;
+  gap: 14px;
+  max-width: 32rem;
+  text-align: left;
 }
 .landing-download-more-body h4 {
   display: flex;
@@ -1136,6 +1143,9 @@
     gap: 20px;
     padding-inline: 5%;
   }
+  .landing-download-benefits {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 @media (max-width: 760px) {
   .landing-header {
@@ -1227,31 +1237,34 @@
     font-size: 20px;
     margin-bottom: 4px;
   }
+  .landing-download {
+    padding-top: 56px;
+  }
   .landing-download-card {
     margin: 0;
-    padding: 24px 20px;
+    padding: 32px 22px 28px;
+    gap: 28px;
+    border-radius: 26px;
   }
-  .landing-download-hero-install {
-    flex-direction: column;
-    align-items: stretch;
-    text-align: center;
+  .landing-download-spotlight {
+    gap: 22px;
   }
-  .landing-download-brand {
-    flex-direction: column;
-    text-align: center;
+  .landing-download-icon-wrap {
+    width: 116px;
+    height: 116px;
+    border-radius: 30px;
   }
-  .landing-download-tagline {
-    margin-inline: auto;
+  .landing-download-benefits {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
   }
-  .landing-download-meta {
-    flex-direction: column;
-    align-items: stretch;
+  .landing-download-benefits li {
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 16px 18px;
   }
-  .landing-download-points {
-    text-align: left;
-  }
-  .landing-download-actions {
-    justify-content: center;
+  .landing-download-footer {
+    padding-top: 22px;
   }
   .landing-closing {
     margin: 55px 24px 0;
