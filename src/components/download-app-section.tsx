@@ -4,11 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ArrowUpRight, Check, Share, Smartphone } from "lucide-react";
+import { AndroidApkDownloadButton } from "@/components/android-apk-download-button";
 import { AndroidLogo } from "@/components/android-logo";
 import { PwaInstallButton } from "@/components/pwa-install-button";
-import { usePwaInstall } from "@/hooks/use-pwa-install";
-import { reloadOnceForPwaInstall } from "@/lib/pwa-install-flow";
 import { AppVersionLanding } from "@/components/app-version";
+import { detectPwaPlatform } from "@/lib/pwa-client";
 import {
   type LandingLocale,
   translate,
@@ -16,32 +16,13 @@ import {
 
 export function DownloadAppSection({ locale }: { locale: LandingLocale }) {
   const t = (text: string) => translate(locale, text);
-  const { platform, installed, canOneClickInstall } = usePwaInstall();
-  const [androidHelp, setAndroidHelp] = useState(false);
-  const [iosHelp, setIosHelp] = useState(false);
-
+  const [platform, setPlatform] = useState<"android" | "ios" | "other">(
+    "other",
+  );
   useEffect(() => {
-    const onAndroid = () => {
-      setAndroidHelp(true);
-      setIosHelp(false);
-    };
-    const onIos = () => {
-      setIosHelp(true);
-      setAndroidHelp(false);
-    };
-    window.addEventListener("pwa-show-android-help", onAndroid);
-    window.addEventListener("pwa-show-ios-help", onIos);
-    return () => {
-      window.removeEventListener("pwa-show-android-help", onAndroid);
-      window.removeEventListener("pwa-show-ios-help", onIos);
-    };
+    const p = detectPwaPlatform();
+    setPlatform(p === "android" ? "android" : p === "ios" ? "ios" : "other");
   }, []);
-
-  useEffect(() => {
-    if (canOneClickInstall) {
-      setAndroidHelp(false);
-    }
-  }, [canOneClickInstall]);
 
   return (
     <section
@@ -51,11 +32,13 @@ export function DownloadAppSection({ locale }: { locale: LandingLocale }) {
     >
       <div className="landing-section-heading">
         <span className="landing-kicker">
-          <AndroidLogo size={15} /> {t("FREE · NO PLAY STORE")}
+          <AndroidLogo size={15} /> {t("ANDROID APP · WEB INSIDE")}
         </span>
-        <h2 id="download-app-title">{t("Install San Pya in one tap")}</h2>
+        <h2 id="download-app-title">{t("Download the San Pya Android app")}</h2>
         <p>
-          {t("Tap the button — Chrome installs the app to your home screen.")}
+          {t(
+            "Install the APK like any app. Inside, you use the same San Pya website — login, invoices, and PDF.",
+          )}
         </p>
       </div>
 
@@ -70,55 +53,35 @@ export function DownloadAppSection({ locale }: { locale: LandingLocale }) {
               className="landing-download-app-icon"
             />
           </div>
-          <div className="landing-download-cta-wrap">
-            <PwaInstallButton locale={locale} variant="section" />
-            {!installed && canOneClickInstall ? (
-              <p className="landing-download-ready" role="status">
-                <Check size={16} aria-hidden="true" />
-                {t("Ready — tap Install and confirm in Chrome")}
-              </p>
-            ) : null}
-            {!installed && platform === "android" && !canOneClickInstall ? (
-              <p className="landing-download-ready landing-download-ready-muted">
-                {t("Use Chrome on Android for the one-tap install button.")}
-              </p>
-            ) : null}
+          <div className="landing-download-cta-wrap landing-download-cta-apk">
+            <AndroidApkDownloadButton locale={locale} variant="section" />
+            <p className="landing-download-ready landing-download-ready-muted">
+              {t("After download: open the file → Install → open San Pya from your home screen.")}
+            </p>
           </div>
         </div>
 
-        {androidHelp && !installed && !canOneClickInstall ? (
-          <div
-            className="landing-download-help landing-download-help-android"
-            role="status"
-          >
-            <h3>
-              <AndroidLogo size={20} /> {t("Almost there — Android")}
-            </h3>
-            <ol>
-              <li>
-                {t("Open this page in Chrome (not Facebook / TikTok browser)")}
-              </li>
-              <li>{t("Tap Refresh below, then the green Install button again")}</li>
-              <li>
-                {t("Or use Chrome menu (⋮) → Install app / Add to Home screen")}
-              </li>
-            </ol>
-            <button
-              type="button"
-              className="button button-secondary landing-download-refresh"
-              onClick={() => {
-                if (!reloadOnceForPwaInstall()) {
-                  window.location.assign(`${window.location.pathname}#download-app`);
-                  window.location.reload();
-                }
-              }}
-            >
-              {t("Refresh page to enable install")}
-            </button>
-          </div>
-        ) : null}
+        <div className="landing-download-apk-steps">
+          <h3>{t("Install the APK")}</h3>
+          <ol>
+            <li>{t("Tap Download APK above")}</li>
+            <li>{t("If asked, allow install from this browser or Files app")}</li>
+            <li>{t("Open San Pya — sign in with your workspace account")}</li>
+          </ol>
+        </div>
 
-        {iosHelp && !installed ? (
+        <div className="landing-download-alt">
+          <h3>
+            <Smartphone size={18} aria-hidden="true" />
+            {t("No APK? Quick browser install")}
+          </h3>
+          <p>{t("On Android Chrome you can also add San Pya to your home screen without downloading a file.")}</p>
+          <div className="landing-download-cta-wrap landing-download-cta-pwa">
+            <PwaInstallButton locale={locale} variant="section" />
+          </div>
+        </div>
+
+        {platform === "ios" ? (
           <div className="landing-download-help landing-download-help-ios" role="status">
             <h3>
               <Share size={20} aria-hidden="true" /> {t("iPhone / iPad")}
@@ -134,15 +97,15 @@ export function DownloadAppSection({ locale }: { locale: LandingLocale }) {
         <ul className="landing-download-benefits">
           <li>
             <Check size={18} aria-hidden="true" />
+            <span>{t("Real app icon on your home screen")}</span>
+          </li>
+          <li>
+            <Check size={18} aria-hidden="true" />
             <span>{t("Same login, invoices, and PDF tools")}</span>
           </li>
           <li>
             <Check size={18} aria-hidden="true" />
-            <span>{t("Works on Android and iPhone / iPad")}</span>
-          </li>
-          <li>
-            <Check size={18} aria-hidden="true" />
-            <span>{t("Internet required — always up to date")}</span>
+            <span>{t("Web updates — no reinstall for most features")}</span>
           </li>
         </ul>
 
@@ -152,28 +115,6 @@ export function DownloadAppSection({ locale }: { locale: LandingLocale }) {
             {t("Sign in to your workspace")}
             <ArrowUpRight size={16} />
           </Link>
-          <details className="landing-download-more">
-            <summary>
-              <Smartphone size={16} aria-hidden="true" />
-              {t("Manual install steps")}
-            </summary>
-            <div className="landing-download-more-body">
-              <article>
-                <h4>
-                  <AndroidLogo size={16} /> {t("Android (Chrome)")}
-                </h4>
-                <p>
-                  {t(
-                    "Menu (⋮) → Install app or Add to Home screen, then open San Pya from your home screen.",
-                  )}
-                </p>
-              </article>
-              <article>
-                <h4>{t("iPhone / iPad (Safari)")}</h4>
-                <p>{t("Share → Add to Home Screen → Add.")}</p>
-              </article>
-            </div>
-          </details>
         </div>
       </div>
     </section>

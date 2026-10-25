@@ -192,6 +192,26 @@ const myanmar: Record<string, string> = {
   "Or use Chrome menu (⋮) → Install app / Add to Home screen":
     "သို့မဟုတ် Chrome menu (⋮) → Install app / Add to Home screen သုံးပါ",
   "Refresh page to enable install": "ထည့်သွင်းနိုင်အောင် စာမျက်နှာ Refresh လုပ်ပါ",
+  "ANDROID APP · WEB INSIDE": "ANDROID APP · ဝဘ်အတွင်းပါ",
+  "Download the San Pya Android app": "စံပြ Android အက်ပ် ဒေါင်းလုဒ်လုပ်ပါ",
+  "Install the APK like any app. Inside, you use the same San Pya website — login, invoices, and PDF.":
+    "APK ကို အက်ပ်အတိုင်း ထည့်ပါ။ အတွင်းမှာ စံပြ ဝဘ်ဆိုက် တူညီ — login၊ ပြေစာ၊ PDF။",
+  "Download APK — Android app": "APK ဒေါင်းလုဒ် — Android အက်ပ်",
+  "Download APK": "APK ဒေါင်းလုဒ်",
+  "After download: open the file → Install → open San Pya from your home screen.":
+    "ဒေါင်းပြီးရင် ဖိုင် ဖွင့် → Install → Home screen မှ စံပြ ဖွင့်ပါ။",
+  "Install the APK": "APK ထည့်သွင်းနည်း",
+  "Tap Download APK above": "အပေါ်က APK ဒေါင်းလုဒ် နှိပ်ပါ",
+  "If asked, allow install from this browser or Files app":
+    "မေးရင် browser သို့မဟုတ် Files app မှ ထည့်ခွင့်ပြုပါ",
+  "Open San Pya — sign in with your workspace account":
+    "စံပြ ဖွင့် — လုပ်ငန်းအကောင့်ဖြင့် ဝင်ပါ",
+  "No APK? Quick browser install": "APK မလို? Browser မှ အမြန် ထည့်",
+  "On Android Chrome you can also add San Pya to your home screen without downloading a file.":
+    "Android Chrome တွင် ဖိုင်မဒေါင်းဘဲ Home screen သို့ ထည့်နိုင်ပါသည်။",
+  "Real app icon on your home screen": "Home screen တွင် အက်ပ် icon အစစ်",
+  "Web updates — no reinstall for most features":
+    "ဝဘ်အပ်ဒိတ် — အများစု အင်္ဂါရပ်အတွက် APK ပြန် မထည့်ရ",
 };
 export function translate(locale: LandingLocale, text: string): string {
   return locale === "my" ? (myanmar[text] ?? text) : text;

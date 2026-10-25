@@ -23,7 +23,7 @@ import {
 import { Brand } from "@/components/brand";
 import { ThemeToggle } from "@/components/theme-provider";
 import { DownloadAppSection } from "@/components/download-app-section";
-import { PwaInstallButton } from "@/components/pwa-install-button";
+import { LandingGetAppButton } from "@/components/landing-get-app-button";
 import { PricingPlans } from "@/components/pricing-plans";
 import "./landing.css";
 
@@ -128,7 +128,7 @@ export default async function Home() {
         <div className="landing-header-actions">
           <LanguageSwitcher locale={locale} />
           <ThemeToggle locale={locale} />
-          <PwaInstallButton locale={locale} variant="header" />
+          <LandingGetAppButton locale={locale} variant="header" />
           <Link className="button button-secondary" href="/login">
             {t("Sign in")}
             <ArrowUpRight size={16} />
@@ -164,7 +164,7 @@ export default async function Home() {
                 {t("Find your plan")}
                 <ArrowDown size={17} />
               </a>
-              <PwaInstallButton locale={locale} variant="hero" />
+              <LandingGetAppButton locale={locale} variant="hero" />
               <a className="landing-quiet-link" href="#features">
                 {t("Meet your new workspace")}
                 <ArrowUpRight size={16} />

@@ -39,6 +39,10 @@ yarn-error.log*
 # generated marketing assets
 /exports/
 
+# Built Android APK (upload to hosting manually or via CI)
+/public/downloads/*.apk
+/android/app/build/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

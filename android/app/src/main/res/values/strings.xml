@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">San Pya</string>
+    <string name="title_activity_main">San Pya</string>
+    <string name="package_name">com.sanpya.invoice</string>
+    <string name="custom_url_scheme">com.sanpya.invoice</string>
+</resources>
