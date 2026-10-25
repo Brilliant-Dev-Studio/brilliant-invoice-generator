@@ -1,8 +1,7 @@
-import { randomUUID } from "node:crypto";
 import { rm } from "node:fs/promises";
-import { chromium } from "playwright";
 import { cookies } from "next/headers";
 import { requireUser } from "@/lib/auth";
+import { launchPdfBrowser } from "@/lib/pdf-browser";
 import { invoice } from "@/lib/db";
 import { pdfRenderOrigin } from "@/lib/pdf-app-url";
 import { COOKIE } from "@/lib/session";
@@ -49,29 +48,12 @@ export async function GET(
       { status: 503 },
     );
   }
-  let browser;
-  let userDataDir: string | undefined;
+  let browserSession: Awaited<ReturnType<typeof launchPdfBrowser>> | undefined;
   let stage: keyof typeof exportErrors = "launch-browser";
   try {
-    const customExecutable = process.env.CHROMIUM_EXECUTABLE_PATH;
-    // Vercel has no Playwright browser cache; unpack the bundled Linux binary.
-    const serverlessChromium =
-      process.env.VERCEL === "1" && !customExecutable
-        ? (await import("@sparticuz/chromium")).default
-        : undefined;
-    if (serverlessChromium) serverlessChromium.setGraphicsMode = false;
-    userDataDir = process.env.VERCEL ? `/tmp/pw-${randomUUID()}` : undefined;
-    browser = await chromium.launch({
-      headless: true,
-      args: [
-        ...(serverlessChromium?.args ?? []),
-        ...(userDataDir ? [`--user-data-dir=${userDataDir}`] : []),
-      ],
-      executablePath:
-        customExecutable || (await serverlessChromium?.executablePath()),
-    });
+    browserSession = await launchPdfBrowser();
     stage = "configure-browser";
-    const context = await browser.newContext();
+    const context = await browserSession.browser.newContext();
     await context.addCookies([
       {
         name: COOKIE,
@@ -91,7 +73,6 @@ export async function GET(
     }
     stage = "load-invoice";
     const printUrl = `${base.replace(/\/$/, "")}/dashboard/invoices/${id}/print`;
-    // Avoid networkidle: Next dev keeps HMR sockets open and never goes idle.
     const response = await page.goto(printUrl, {
       waitUntil: "load",
       timeout: 60000,
@@ -169,10 +150,10 @@ export async function GET(
       },
     });
   } catch (error) {
-    // Preserve the server-side cause without exposing internal details to clients.
     console.error("Invoice PDF export failed", {
       stage,
       base,
+      vercel: process.env.VERCEL === "1",
       error,
     });
     return Response.json(
@@ -183,9 +164,10 @@ export async function GET(
       { status: 503 },
     );
   } finally {
-    await browser?.close().catch((error: unknown) => {
+    await browserSession?.browser.close().catch((error: unknown) => {
       console.error("Invoice PDF browser cleanup failed", { error });
     });
+    const userDataDir = browserSession?.userDataDir;
     if (userDataDir) {
       await rm(userDataDir, { recursive: true, force: true }).catch(
         (error: unknown) => {

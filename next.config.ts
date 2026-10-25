@@ -2,7 +2,13 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   devIndicators: { position: "top-right" },
   turbopack: { root: process.cwd() },
-  serverExternalPackages: ["pg", "playwright", "sharp", "@sparticuz/chromium"],
+  serverExternalPackages: [
+    "pg",
+    "playwright",
+    "playwright-core",
+    "sharp",
+    "@sparticuz/chromium",
+  ],
   outputFileTracingIncludes: {
     "/api/invoices/*/pdf": ["./node_modules/@sparticuz/chromium/bin/**/*"],
   },

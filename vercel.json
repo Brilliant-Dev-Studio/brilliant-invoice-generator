@@ -1,3 +1,9 @@
 {
-  "crons": [{ "path": "/api/cron/demo-reset", "schedule": "0 0 * * *" }]
+  "crons": [{ "path": "/api/cron/demo-reset", "schedule": "0 0 * * *" }],
+  "functions": {
+    "src/app/api/invoices/**/route.ts": {
+      "memory": 3008,
+      "maxDuration": 60
+    }
+  }
 }
