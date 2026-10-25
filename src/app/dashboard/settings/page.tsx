@@ -1,6 +1,7 @@
 import { requireUser } from "@/lib/auth";
 import { company } from "@/lib/db";
 import { storageReady } from "@/lib/storage";
+import { AppAboutPanel } from "@/components/app-version";
 import { SettingsForm } from "@/components/settings-form";
 import { T } from "@/components/language-provider";
 import Link from "next/link";
@@ -34,6 +35,7 @@ export default async function Settings() {
         company={await company(user.companyId)}
         storageReady={storageReady()}
       />
+      <AppAboutPanel />
     </>
   );
 }

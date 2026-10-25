@@ -22,6 +22,7 @@ import {
   useLanguage,
 } from "@/components/language-provider";
 import { LanguageSwitcher } from "./language-switcher";
+import { AppVersionText } from "./app-version";
 export function Shell({
   user,
   companyName,
@@ -162,7 +163,10 @@ export function Shell({
         <AccountCompanion name={user.name} />
       </main>
       <footer className="app-footer no-print">
-        <span>San Pya Invoice</span>
+        <span className="app-footer-brand">
+          San Pya Invoice
+          <AppVersionText className="app-footer-version" />
+        </span>
         <span>
           <T text="Made for business. Built for clarity." />
         </span>

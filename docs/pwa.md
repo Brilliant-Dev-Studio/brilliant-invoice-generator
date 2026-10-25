@@ -22,6 +22,11 @@ San Pya Invoice can be installed as a lightweight app without the Play Store.
 2. Share → **Add to Home Screen**.
 3. Name: **စံပြ** (or San Pya).
 
+## App version
+
+- Shown on the landing **Download app** section, in the dashboard footer, and under **Settings → About this app**.
+- **Source of truth:** `version` in `package.json` (via `src/lib/app-version.ts`). Bump it when you ship a client-visible release, then deploy.
+
 ## Notes
 
 - **Internet required** — invoices and auth use the live server (not offline-first).

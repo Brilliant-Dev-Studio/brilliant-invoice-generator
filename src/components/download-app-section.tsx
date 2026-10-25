@@ -7,6 +7,7 @@ import { ArrowUpRight, Check, Share, Smartphone } from "lucide-react";
 import { AndroidLogo } from "@/components/android-logo";
 import { PwaInstallButton } from "@/components/pwa-install-button";
 import { usePwaInstall } from "@/hooks/use-pwa-install";
+import { AppVersionLanding } from "@/components/app-version";
 import {
   type LandingLocale,
   translate,
@@ -136,6 +137,7 @@ export function DownloadAppSection({ locale }: { locale: LandingLocale }) {
         </ul>
 
         <div className="landing-download-footer">
+          <AppVersionLanding locale={locale} />
           <Link className="button button-secondary" href="/login">
             {t("Sign in to your workspace")}
             <ArrowUpRight size={16} />

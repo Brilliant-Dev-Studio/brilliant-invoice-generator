@@ -479,6 +479,36 @@ input::-webkit-inner-spin-button {
   align-items: center;
   gap: 6px;
 }
+.app-footer-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  line-height: 1.45;
+}
+.app-footer-version {
+  font-size: 9px;
+  font-weight: 500;
+  color: var(--text-muted, #727784);
+}
+.app-footer-version .app-version-number {
+  font-weight: 700;
+  color: var(--text-secondary, #9aa0ad);
+}
+.app-version-text .app-version-number {
+  font-weight: 700;
+}
+.app-about-panel {
+  margin-top: 20px;
+}
+.app-about-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.app-about-note {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
 .panel {
   border: 1px solid var(--border);
   background: var(--panel);

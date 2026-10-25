@@ -234,6 +234,10 @@ export const platformMyanmar: Record<string, string> = {
   "PLATFORM OWNER WORKSPACE": "ပလက်ဖောင်းပိုင်ရှင်၏ လုပ်ငန်းခွင်",
   "Made for business. Built for clarity.":
     "လုပ်ငန်းအတွက် ရိုးရှင်းရှင်းလင်းသော စနစ်။",
+  "App version": "အက်ပ် ဗားရှင်း",
+  "About this app": "ဤအက်ပ်အကြောင်း",
+  "When we release updates, refresh or reopen the app while you are online to get the latest version.":
+    "အပ်ဒိတ်ထွက်လာပါက အင်တာနက်ရှိစဉ် အက်ပ်ကို ပြန်ဖွင့်ပါ (သို့) စာမျက်နှာ refresh လုပ်ပါ — နောက်ဆုံးဗားရှင်း ရမည်။",
   "New invoice": "ပြေစာအသစ်",
   "Create client account": "ဖောက်သည်အကောင့် ဖန်တီးရန်",
   "YOUR BUSINESS, IN FOCUS": "သင့်လုပ်ငန်းကို တစ်နေရာတည်းမှ ကြည့်ရှုပါ",
