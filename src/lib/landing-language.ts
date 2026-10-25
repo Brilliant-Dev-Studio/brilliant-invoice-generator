@@ -158,6 +158,34 @@ const myanmar: Record<string, string> = {
   "Tap Share → Add to Home Screen": "Share → Add to Home Screen ကို နှိပ်ပါ",
   "Tap Add — look for the San Pya icon":
     "Add နှိပ်ပါ — စံပြ icon ကို ရှာပါ",
+  "Install now": "ယခု ထည့်သွင်းရန်",
+  "Install now — one tap": "ယခု ထည့်ပါ — တစ်ချက်တည်း",
+  "Install on Android": "Android တွင် ထည့်သွင်းရန်",
+  "Open app": "အက်ပ် ဖွင့်ရန်",
+  "Installed — open San Pya": "ထည့်ပြီး — စံပြ ဖွင့်ပါ",
+  "Add to Home Screen": "Home Screen သို့ ထည့်ရန်",
+  "FREE · NO PLAY STORE": "အခမဲ့ · Play Store မလို",
+  "Install San Pya in one tap": "တစ်ချက်နဲ့ စံပြ ထည့်ပါ",
+  "Tap the button — Chrome installs the app to your home screen.":
+    "ခလုတ်နှိပ်ပါ — Chrome က Home screen သို့ အက်ပ် ထည့်ပေးမည်။",
+  "Ready — tap Install and confirm in Chrome":
+    "အဆင်သင့် — Install နှိပ်ပြီး Chrome တွင် အတည်ပြုပါ",
+  "Use Chrome on Android for the one-tap install button.":
+    "တစ်ချက်ထည့် ခလုတ်အတွက် Android တွင် Chrome သုံးပါ။",
+  "Almost there — Android": "နီးပါပြီ — Android",
+  "Open this page in Chrome (not Facebook / TikTok browser)":
+    "Chrome တွင် ဤစာမျက်နှာ ဖွင့်ပါ (Facebook / TikTok browser မဟုတ်)",
+  "Tap the green Install button again":
+    "အစိမ်းရောင် Install ခလုတ်ကို ထပ်နှိပ်ပါ",
+  "Confirm when Chrome asks to add San Pya":
+    "Chrome က စံပြ ထည့်ခိုင်းရင် အတည်ပြုပါ",
+  "Same login, invoices, and PDF tools":
+    "Login၊ ပြေစာနှင့် PDF တူညီသည်",
+  "Manual install steps": "လက်ဖြင့် ထည့်နည်း",
+  "Menu (⋮) → Install app or Add to Home screen, then open San Pya from your home screen.":
+    "Menu (⋮) → Install app သို့မဟုတ် Add to Home screen၊ ပြီးရင် Home screen မှ စံပြ ဖွင့်ပါ။",
+  "Share → Add to Home Screen → Add.":
+    "Share → Add to Home Screen → Add။",
 };
 export function translate(locale: LandingLocale, text: string): string {
   return locale === "my" ? (myanmar[text] ?? text) : text;

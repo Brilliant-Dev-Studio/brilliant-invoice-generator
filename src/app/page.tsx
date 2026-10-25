@@ -18,12 +18,12 @@ import {
   Headphones,
   QrCode,
   ShieldCheck,
-  Smartphone,
   Sparkles,
 } from "lucide-react";
 import { Brand } from "@/components/brand";
 import { ThemeToggle } from "@/components/theme-provider";
 import { DownloadAppSection } from "@/components/download-app-section";
+import { PwaInstallButton } from "@/components/pwa-install-button";
 import { PricingPlans } from "@/components/pricing-plans";
 import "./landing.css";
 
@@ -128,13 +128,7 @@ export default async function Home() {
         <div className="landing-header-actions">
           <LanguageSwitcher locale={locale} />
           <ThemeToggle locale={locale} />
-          <a
-            className="button button-primary landing-header-download"
-            href="#download-app"
-          >
-            <Smartphone size={16} aria-hidden="true" />
-            {t("Download app")}
-          </a>
+          <PwaInstallButton locale={locale} variant="header" />
           <Link className="button button-secondary" href="/login">
             {t("Sign in")}
             <ArrowUpRight size={16} />
@@ -170,10 +164,7 @@ export default async function Home() {
                 {t("Find your plan")}
                 <ArrowDown size={17} />
               </a>
-              <a className="button button-secondary" href="#download-app">
-                {t("Download app")}
-                <ArrowDown size={17} />
-              </a>
+              <PwaInstallButton locale={locale} variant="hero" />
               <a className="landing-quiet-link" href="#features">
                 {t("Meet your new workspace")}
                 <ArrowUpRight size={16} />
