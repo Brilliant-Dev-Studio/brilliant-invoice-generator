@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Suspense } from "react";
 import { cookies } from "next/headers";
 import { NavigationProgress } from "@/components/navigation-progress";
+import { PwaRegister } from "@/components/pwa-register";
 import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ValidationToasts } from "@/components/validation-toasts";
@@ -50,6 +51,10 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#a45138" },
+    { media: "(prefers-color-scheme: dark)", color: "#1b2635" },
+  ],
 };
 export const metadata: Metadata = {
   title: {
@@ -57,6 +62,19 @@ export const metadata: Metadata = {
     template: "%s | San Pya Invoice",
   },
   description: "A thoughtful invoice workspace for your business.",
+  applicationName: "San Pya Invoice",
+  appleWebApp: {
+    capable: true,
+    title: "စံပြ",
+    statusBarStyle: "default",
+  },
+  icons: {
+    icon: [
+      { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icons/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [{ url: "/icons/apple-touch-icon.png", sizes: "180x180" }],
+  },
 };
 export default async function RootLayout({
   children,
@@ -92,6 +110,7 @@ export default async function RootLayout({
             <Suspense fallback={null}>
               <NavigationProgress />
             </Suspense>
+            <PwaRegister />
             {children}
           </ThemeProvider>
           <ValidationToasts />

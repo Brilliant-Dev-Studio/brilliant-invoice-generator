@@ -11,6 +11,7 @@
     "test": "node --env-file-if-exists=.env.local --experimental-strip-types --test tests/*.test.ts",
     "bootstrap": "node --env-file=.env.local --experimental-strip-types scripts/bootstrap.ts",
     "format": "prettier --write src scripts tests *.json *.ts *.mjs",
+    "pwa:icons": "node scripts/generate-pwa-icons.mjs",
     "db:up": "docker compose up -d --wait db",
     "db:down": "docker compose stop db",
     "db:seed:demo": "node --env-file-if-exists=.env.local --experimental-strip-types scripts/seed-demo.ts",

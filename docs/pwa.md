@@ -1,0 +1,34 @@
+# PWA (Android / iPhone — Add to Home screen)
+
+San Pya Invoice can be installed as a lightweight app without the Play Store.
+
+## What is included
+
+- Web App Manifest (`src/app/manifest.ts` → `/manifest.webmanifest`)
+- Icons in `public/icons/` (regenerate: `npm run pwa:icons`)
+- Service worker `public/sw.js` (network-first; required for Chrome install)
+- Theme color and Apple web app meta tags in `src/app/layout.tsx`
+
+## Install on Android (Chrome)
+
+1. Open **https://brilliant-invoice-generator.vercel.app** (or your production URL).
+2. Sign in if needed.
+3. Chrome menu (⋮) → **Install app** or **Add to Home screen**.
+4. Open from the home screen icon — runs fullscreen like an app.
+
+## Install on iPhone (Safari)
+
+1. Open the site in Safari.
+2. Share → **Add to Home Screen**.
+3. Name: **စံပြ** (or San Pya).
+
+## Notes
+
+- **Internet required** — invoices and auth use the live server (not offline-first).
+- **PDF** — use **Save PDF** → **Share** → Files (same as mobile browser).
+- After changing icons, run `npm run pwa:icons` and redeploy.
+- Service worker updates on redeploy; users may need to close and reopen the installed app once.
+
+## Play Store later
+
+This PWA can be wrapped with **Trusted Web Activity (TWA)** or **Capacitor** using the same production URL.
