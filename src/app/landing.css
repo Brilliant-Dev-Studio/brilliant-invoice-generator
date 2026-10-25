@@ -842,6 +842,11 @@
   border-color: #3ddc8466;
   background: color-mix(in srgb, #3ddc84 12%, var(--surface-soft));
 }
+.landing-download-refresh {
+  margin-top: 16px;
+  width: 100%;
+  max-width: 360px;
+}
 .landing-download-benefits {
   margin: 0;
   padding: 0;

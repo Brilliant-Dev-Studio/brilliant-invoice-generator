@@ -7,9 +7,10 @@ export default function manifest(): MetadataRoute.Manifest {
     short_name: "စံပြ",
     description:
       "Invoice workspace for Myanmar businesses — clients, QR payments, PDF, and team access.",
-    start_url: "/",
+    start_url: "/?source=pwa",
     scope: "/",
     display: "standalone",
+    prefer_related_applications: false,
     orientation: "any",
     background_color: "#fff7e7",
     theme_color: "#a45138",

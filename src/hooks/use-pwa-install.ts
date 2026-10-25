@@ -3,73 +3,55 @@
 import { useCallback, useEffect, useState } from "react";
 import {
   detectPwaPlatform,
-  isAndroidChrome,
-  isInAppBrowser,
   isStandaloneDisplay,
-  openCurrentPageInChrome,
   type PwaPlatform,
 } from "@/lib/pwa-client";
-
-export type InstallPromptEvent = Event & {
-  prompt: () => Promise<void>;
-  userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
-};
+import {
+  getDeferredInstallPrompt,
+  isPwaInstalled,
+  promptPwaInstall,
+  setPwaInstalled,
+  subscribePwaInstall,
+} from "@/lib/pwa-install-store";
+import { attemptPwaInstall, ensureServiceWorkerReady } from "@/lib/pwa-install-flow";
 
 export function usePwaInstall() {
-  const [installPrompt, setInstallPrompt] = useState<InstallPromptEvent | null>(
-    null,
-  );
-  const [installed, setInstalled] = useState(false);
   const [platform, setPlatform] = useState<PwaPlatform>("unknown");
+  const [installed, setInstalled] = useState(false);
+  const [canOneClickInstall, setCanOneClickInstall] = useState(false);
+
+  const sync = useCallback(() => {
+    setInstalled(isPwaInstalled() || isStandaloneDisplay());
+    setCanOneClickInstall(Boolean(getDeferredInstallPrompt()) && !isPwaInstalled());
+  }, []);
 
   useEffect(() => {
     setPlatform(detectPwaPlatform());
     if (isStandaloneDisplay()) {
-      setInstalled(true);
+      setPwaInstalled(true);
     }
+    sync();
+    void ensureServiceWorkerReady().then(() => sync());
+    return subscribePwaInstall(sync);
+  }, [sync]);
 
-    const onInstallable = (event: Event) => {
-      event.preventDefault();
-      setInstallPrompt(event as InstallPromptEvent);
-    };
-    const onInstalled = () => {
-      setInstalled(true);
-      setInstallPrompt(null);
-    };
-
-    window.addEventListener("beforeinstallprompt", onInstallable);
-    window.addEventListener("appinstalled", onInstalled);
-    return () => {
-      window.removeEventListener("beforeinstallprompt", onInstallable);
-      window.removeEventListener("appinstalled", onInstalled);
-    };
-  }, []);
-
-  const install = useCallback(async (): Promise<"accepted" | "dismissed" | "unavailable"> => {
-    if (!installPrompt) return "unavailable";
-    await installPrompt.prompt();
-    const { outcome } = await installPrompt.userChoice;
-    setInstallPrompt(null);
-    if (outcome === "accepted") {
-      setInstalled(true);
-    }
+  const install = useCallback(async () => {
+    const outcome = await promptPwaInstall();
+    sync();
     return outcome;
-  }, [installPrompt]);
+  }, [sync]);
 
-  const prepareAndroidInstall = useCallback((): "prompt" | "chrome" | "help" => {
-    if (installPrompt) return "prompt";
-    if (platform === "android" && (isInAppBrowser() || !isAndroidChrome())) {
-      openCurrentPageInChrome();
-      return "chrome";
-    }
-    return "help";
-  }, [installPrompt, platform]);
+  const installWithFallback = useCallback(async () => {
+    const result = await attemptPwaInstall();
+    sync();
+    return result;
+  }, [sync]);
 
   return {
     platform,
     installed,
-    canOneClickInstall: Boolean(installPrompt) && !installed,
+    canOneClickInstall,
     install,
-    prepareAndroidInstall,
+    installWithFallback,
   };
 }

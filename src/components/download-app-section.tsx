@@ -7,6 +7,7 @@ import { ArrowUpRight, Check, Share, Smartphone } from "lucide-react";
 import { AndroidLogo } from "@/components/android-logo";
 import { PwaInstallButton } from "@/components/pwa-install-button";
 import { usePwaInstall } from "@/hooks/use-pwa-install";
+import { reloadOnceForPwaInstall } from "@/lib/pwa-install-flow";
 import { AppVersionLanding } from "@/components/app-version";
 import {
   type LandingLocale,
@@ -18,11 +19,6 @@ export function DownloadAppSection({ locale }: { locale: LandingLocale }) {
   const { platform, installed, canOneClickInstall } = usePwaInstall();
   const [androidHelp, setAndroidHelp] = useState(false);
   const [iosHelp, setIosHelp] = useState(false);
-
-  useEffect(() => {
-    if (!("serviceWorker" in navigator)) return;
-    navigator.serviceWorker.register("/sw.js", { scope: "/" }).catch(() => {});
-  }, []);
 
   useEffect(() => {
     const onAndroid = () => {
@@ -102,9 +98,23 @@ export function DownloadAppSection({ locale }: { locale: LandingLocale }) {
               <li>
                 {t("Open this page in Chrome (not Facebook / TikTok browser)")}
               </li>
-              <li>{t("Tap the green Install button again")}</li>
-              <li>{t("Confirm when Chrome asks to add San Pya")}</li>
+              <li>{t("Tap Refresh below, then the green Install button again")}</li>
+              <li>
+                {t("Or use Chrome menu (⋮) → Install app / Add to Home screen")}
+              </li>
             </ol>
+            <button
+              type="button"
+              className="button button-secondary landing-download-refresh"
+              onClick={() => {
+                if (!reloadOnceForPwaInstall()) {
+                  window.location.assign(`${window.location.pathname}#download-app`);
+                  window.location.reload();
+                }
+              }}
+            >
+              {t("Refresh page to enable install")}
+            </button>
           </div>
         ) : null}
 

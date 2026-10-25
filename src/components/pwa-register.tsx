@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect } from "react";
+import { initPwaInstallStore } from "@/lib/pwa-install-store";
+import { ensureServiceWorkerReady } from "@/lib/pwa-install-flow";
 
 export function PwaRegister() {
   useEffect(() => {
-    if (!("serviceWorker" in navigator)) return;
-    navigator.serviceWorker.register("/sw.js", { scope: "/" }).catch(() => {
-      /* Registration is optional for basic browsing. */
-    });
+    initPwaInstallStore();
+    void ensureServiceWorkerReady();
   }, []);
   return null;
 }

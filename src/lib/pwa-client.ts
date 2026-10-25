@@ -9,10 +9,17 @@ export function detectPwaPlatform(): PwaPlatform {
   return "unknown";
 }
 
-export function isAndroidChrome(): boolean {
+/** Chromium-family browsers on Android that can install PWAs. */
+export function isAndroidInstallBrowser(): boolean {
   if (typeof navigator === "undefined") return false;
   const ua = navigator.userAgent;
-  return /android/i.test(ua) && /Chrome/i.test(ua) && !/EdgA|OPR|SamsungBrowser/i.test(ua);
+  if (!/android/i.test(ua)) return false;
+  return /Chrome|CriOS|SamsungBrowser|EdgA/i.test(ua);
+}
+
+/** @deprecated Use isAndroidInstallBrowser */
+export function isAndroidChrome(): boolean {
+  return isAndroidInstallBrowser();
 }
 
 export function isInAppBrowser(): boolean {

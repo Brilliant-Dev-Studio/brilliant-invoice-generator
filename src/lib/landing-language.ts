@@ -187,6 +187,11 @@ const myanmar: Record<string, string> = {
   "Share → Add to Home Screen → Add.":
     "Share → Add to Home Screen → Add။",
   "App version": "အက်ပ် ဗားရှင်း",
+  "Tap Refresh below, then the green Install button again":
+    "အောက်က Refresh နှိပ်ပြီး အစိမ်းရောင် Install ခလုတ်ကို ထပ်နှိပ်ပါ",
+  "Or use Chrome menu (⋮) → Install app / Add to Home screen":
+    "သို့မဟုတ် Chrome menu (⋮) → Install app / Add to Home screen သုံးပါ",
+  "Refresh page to enable install": "ထည့်သွင်းနိုင်အောင် စာမျက်နှာ Refresh လုပ်ပါ",
 };
 export function translate(locale: LandingLocale, text: string): string {
   return locale === "my" ? (myanmar[text] ?? text) : text;

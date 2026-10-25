@@ -4,10 +4,7 @@ import { useState } from "react";
 import { Check, Download } from "lucide-react";
 import { AndroidLogo } from "@/components/android-logo";
 import { usePwaInstall } from "@/hooks/use-pwa-install";
-import {
-  scrollToDownloadSection,
-  type PwaPlatform,
-} from "@/lib/pwa-client";
+import { scrollToDownloadSection, type PwaPlatform } from "@/lib/pwa-client";
 import {
   type LandingLocale,
   translate,
@@ -25,7 +22,7 @@ export function PwaInstallButton({
   className?: string;
 }) {
   const t = (text: string) => translate(locale, text);
-  const { platform, installed, canOneClickInstall, install, prepareAndroidInstall } =
+  const { platform, installed, canOneClickInstall, installWithFallback } =
     usePwaInstall();
   const [busy, setBusy] = useState(false);
 
@@ -37,35 +34,39 @@ export function PwaInstallButton({
 
     setBusy(true);
     try {
-      if (canOneClickInstall) {
-        await install();
+      const result = await installWithFallback();
+
+      if (
+        result.status === "accepted" ||
+        result.status === "already-installed"
+      ) {
+        window.location.href = "/login";
+        return;
+      }
+      if (result.status === "reloading" || result.status === "opened-chrome") {
         return;
       }
 
-      if (platform === "android") {
-        const next = prepareAndroidInstall();
-        if (next === "chrome") return;
-        scrollToDownloadSection(true);
-        window.dispatchEvent(new CustomEvent("pwa-show-android-help"));
-        return;
-      }
-
-      if (platform === "ios") {
-        scrollToDownloadSection(true);
-        window.dispatchEvent(new CustomEvent("pwa-show-ios-help"));
-        return;
-      }
-
-      const outcome = await install();
-      if (outcome === "unavailable") {
-        scrollToDownloadSection(true);
+      if (result.status === "needs-help") {
+        scrollToDownloadSection(variant === "section");
+        if (result.reason === "ios") {
+          window.dispatchEvent(new CustomEvent("pwa-show-ios-help"));
+        } else {
+          window.dispatchEvent(new CustomEvent("pwa-show-android-help"));
+        }
       }
     } finally {
       setBusy(false);
     }
   }
 
-  const label = labelForVariant(variant, platform, installed, canOneClickInstall, t);
+  const label = labelForVariant(
+    variant,
+    platform,
+    installed,
+    canOneClickInstall,
+    t,
+  );
   const iconSize = variant === "section" ? 22 : 16;
   const androidIconSize = variant === "section" ? 26 : 18;
   const showAndroidIcon =
@@ -73,7 +74,11 @@ export function PwaInstallButton({
 
   const classes = [
     variant === "section" ? "pwa-install-cta" : "button",
-    variant === "section" ? "" : variant === "header" ? "button-primary" : "button-secondary",
+    variant === "section"
+      ? ""
+      : variant === "header"
+        ? "button-primary"
+        : "button-secondary",
     variant === "header" ? "landing-header-download" : "",
     variant === "section" ? "pwa-install-cta-android" : "",
     className,

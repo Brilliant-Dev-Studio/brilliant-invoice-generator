@@ -11,10 +11,13 @@ San Pya Invoice can be installed as a lightweight app without the Play Store.
 
 ## Install on Android (Chrome)
 
-1. Open **https://brilliant-invoice-generator.vercel.app** (or your production URL).
-2. Sign in if needed.
-3. Chrome menu (⋮) → **Install app** or **Add to Home screen**.
-4. Open from the home screen icon — runs fullscreen like an app.
+1. Open **https://brilliant-invoice-generator.vercel.app** in **Chrome** (not TikTok/Facebook in-app browser).
+2. On the homepage, tap **Install on Android** (or **Install now** when Chrome is ready).
+3. If nothing happens on the first visit, tap **Refresh page to enable install**, then tap Install again.
+4. Or Chrome menu (⋮) → **Install app** / **Add to Home screen**.
+5. Open from the home screen icon — runs fullscreen like an app.
+
+This is a **PWA** (web app), not an APK from Play Store.
 
 ## Install on iPhone (Safari)
 
