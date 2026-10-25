@@ -39,8 +39,9 @@ yarn-error.log*
 # generated marketing assets
 /exports/
 
-# Built Android APK (upload to hosting manually or via CI)
+# Built Android APK — keep san-pya.apk for landing download deploy
 /public/downloads/*.apk
+!/public/downloads/san-pya.apk
 /android/app/build/
 
 # typescript

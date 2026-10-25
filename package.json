@@ -14,7 +14,7 @@
     "pwa:icons": "node scripts/generate-pwa-icons.mjs",
     "cap:sync": "cap sync android",
     "cap:open": "cap open android",
-    "android:apk:debug": "cd android && ./gradlew assembleDebug",
+    "android:apk:debug": "node scripts/build-android-apk.mjs",
     "db:up": "docker compose up -d --wait db",
     "db:down": "docker compose stop db",
     "db:seed:demo": "node --env-file-if-exists=.env.local --experimental-strip-types scripts/seed-demo.ts",
