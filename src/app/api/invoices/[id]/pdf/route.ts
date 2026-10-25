@@ -2,6 +2,7 @@ import { chromium } from "playwright";
 import { cookies } from "next/headers";
 import { requireUser } from "@/lib/auth";
 import { invoice } from "@/lib/db";
+import { pdfAppUrl } from "@/lib/pdf-app-url";
 import { COOKIE } from "@/lib/session";
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -37,7 +38,7 @@ export async function GET(
   if (!data)
     return Response.json({ error: "Invoice not found." }, { status: 404 });
   const token = (await cookies()).get(COOKIE)?.value;
-  const base = process.env.APP_URL;
+  const base = pdfAppUrl();
   if (!base)
     return Response.json(
       { error: "PDF export requires APP_URL to be configured." },
@@ -72,10 +73,16 @@ export async function GET(
     ]);
     const page = await context.newPage();
     stage = "load-invoice";
-    const response = await page.goto(
-      `${base.replace(/\/$/, "")}/dashboard/invoices/${id}/print`,
-      { waitUntil: "networkidle", timeout: 30000 },
-    );
+    const printUrl = `${base.replace(/\/$/, "")}/dashboard/invoices/${id}/print`;
+    // Avoid networkidle: Next dev keeps HMR sockets open and never goes idle.
+    const response = await page.goto(printUrl, {
+      waitUntil: "load",
+      timeout: 60000,
+    });
+    await page.waitForSelector(".print-document .invoice-paper", {
+      state: "visible",
+      timeout: 30000,
+    });
     if (!response?.ok()) {
       stage =
         response && [401, 403].includes(response.status())

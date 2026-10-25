@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="my">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      @font-face {
+        font-family: "Noto Myanmar";
+        src: url("../src/app/fonts/myanmar/noto-sans-myanmar-600.woff")
+          format("woff");
+        font-weight: 600;
+      }
+      @font-face {
+        font-family: "Hanken";
+        src: url("../node_modules/@fontsource-variable/hanken-grotesk/files/hanken-grotesk-latin-wght-normal.woff2")
+          format("woff2");
+        font-weight: 500 700;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        margin: 0;
+        font-family: "Hanken", system-ui, sans-serif;
+      }
+      .canvas {
+        width: 1080px;
+        height: 1920px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 48px;
+        padding: 120px 80px;
+        position: relative;
+        overflow: hidden;
+      }
+      .canvas.square {
+        width: 1080px;
+        height: 1080px;
+        padding: 100px;
+      }
+      .canvas.vertical {
+        background: radial-gradient(
+            120% 80% at 50% 0%,
+            #fff7e7 0%,
+            #f3e2cf 45%,
+            #e8d4bc 100%
+          ),
+          linear-gradient(165deg, #fffaf2 0%, #f0dcc8 100%);
+      }
+      .canvas.vertical::before {
+        content: "";
+        position: absolute;
+        inset: -20%;
+        background: radial-gradient(
+          circle at 85% 12%,
+          rgba(241, 204, 122, 0.45),
+          transparent 42%
+        );
+        pointer-events: none;
+      }
+      .canvas.square {
+        background: #fff7e7;
+      }
+      .logo {
+        width: 420px;
+        height: 420px;
+        filter: drop-shadow(0 24px 48px rgba(164, 81, 56, 0.22));
+      }
+      .canvas.square .logo {
+        width: 520px;
+        height: 520px;
+      }
+      .wordmark {
+        text-align: center;
+        position: relative;
+        z-index: 1;
+      }
+      .my {
+        font-family: "Noto Myanmar", sans-serif;
+        font-size: 128px;
+        font-weight: 600;
+        color: #3d2a24;
+        line-height: 1.35;
+        letter-spacing: 0.02em;
+      }
+      .en {
+        margin-top: 12px;
+        font-size: 36px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #a45138;
+      }
+      .tagline {
+        max-width: 880px;
+        text-align: center;
+        font-family: "Noto Myanmar", sans-serif;
+        font-size: 44px;
+        line-height: 1.55;
+        color: #5c4a42;
+        position: relative;
+        z-index: 1;
+      }
+      .pill {
+        margin-top: 8px;
+        padding: 18px 36px;
+        border-radius: 999px;
+        background: rgba(164, 81, 56, 0.12);
+        color: #a45138;
+        font-size: 28px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="vertical" class="canvas vertical">
+      <img
+        class="logo"
+        src="../public/san-pya-logo.png"
+        alt=""
+        width="420"
+        height="420"
+      />
+      <div class="wordmark">
+        <div class="my">စံပြ</div>
+        <div class="en">San Pya Invoice</div>
+      </div>
+      <p class="tagline">
+        သပ်ရပ်လှပတဲ့ ပြေစာများ။<br />
+        KPay / Wave QR · PDF · ဝင်ငွေခြုံငုံ
+      </p>
+      <div class="pill">၂၅,၀၀၀ ကျပ်မှ စတင်</div>
+    </div>
+    <div id="square" class="canvas square" style="display: none">
+      <img
+        class="logo"
+        src="../public/san-pya-logo.png"
+        alt=""
+        width="520"
+        height="520"
+      />
+      <div class="wordmark">
+        <div class="my" style="font-size: 96px">စံပြ</div>
+        <div class="en" style="font-size: 30px">San Pya Invoice</div>
+      </div>
+    </div>
+  </body>
+</html>

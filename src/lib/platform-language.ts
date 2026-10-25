@@ -360,7 +360,13 @@ export const platformMyanmar: Record<string, string> = {
   Print: "ပုံနှိပ်ရန်",
   "Download PDF": "PDF ဒေါင်းလုဒ်ရန်",
   "Prepare PDF": "PDF ပြင်ဆင်ရန်",
+  "Save PDF": "PDF သိမ်းရန်",
+  "Open PDF": "PDF ဖွင့်ရန်",
   "Share PDF": "PDF မျှဝေရန်",
+  "Could not share PDF. Open PDF and use Safari's share menu.":
+    "PDF မျှဝေ၍ မရပါ။ PDF ဖွင့်ပြီး Safari မှ မျှဝေခလုတ်ကို သုံးပါ။",
+  "On iPad and iPhone, use Share PDF to save to Files, or Open PDF and tap Safari's share icon.":
+    "iPad/iPhone တွင် Files သိမ်းရန် Share PDF ကို သုံးပါ၊ သို့မဟုတ် Open PDF နှိပ်ပြီး Safari မှ မျှဝေခလုတ်ကို နှိပ်ပါ။",
   "Could not share PDF. Please use Download PDF.":
     "PDF မျှဝေ၍ မရပါ။ PDF ဒေါင်းလုဒ်ရန်ကို အသုံးပြုပါ။",
   "PDF ready. Tap Download PDF to save it, or Share PDF to choose where to save it.":
