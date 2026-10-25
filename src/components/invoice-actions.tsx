@@ -3,9 +3,20 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Check, Download, ExternalLink, Printer, Share2 } from "lucide-react";
 import { markPaid } from "@/actions/invoices";
-import { isAppleTouchDevice } from "@/lib/apple-touch";
+import {
+  canSharePdfFile,
+  downloadPdfViaLink,
+  isTouchLikeDevice,
+  openPdfBlob,
+  pdfExportErrorMessage,
+  preferredPdfDelivery,
+  sharePdfFile,
+} from "@/lib/pdf-client";
 import { Button } from "./ui/button";
-import { T } from "@/components/language-provider";
+import { T } from "./language-provider";
+
+type PdfReady = { url: string; file: File; canShare: boolean };
+
 export function InvoiceActions({
   id,
   number,
@@ -17,42 +28,87 @@ export function InvoiceActions({
 }) {
   const [pending, setPending] = useState("");
   const [error, setError] = useState("");
-  const [pdf, setPdf] = useState<{
-    url: string;
-    file: File;
-    canShare: boolean;
-  } | null>(null);
-  const [appleTouch, setAppleTouch] = useState(false);
+  const [pdf, setPdf] = useState<PdfReady | null>(null);
+  const [touchUi, setTouchUi] = useState(false);
   useEffect(() => {
-    setAppleTouch(isAppleTouchDevice());
+    setTouchUi(isTouchLikeDevice());
   }, []);
   useEffect(() => {
-    // Keep the URL alive while the browser's PDF viewer or download uses it.
     return () => {
       if (pdf) URL.revokeObjectURL(pdf.url);
     };
   }, [pdf]);
   const router = useRouter();
-  async function sharePdf(file: File) {
-    await navigator.share({ files: [file] });
+
+  async function deliverPdf(file: File, url: string) {
+    const mode = preferredPdfDelivery(file);
+    if (mode === "share") {
+      try {
+        await sharePdfFile(file);
+        URL.revokeObjectURL(url);
+        return;
+      } catch (e) {
+        if (e instanceof Error && e.name === "AbortError") {
+          URL.revokeObjectURL(url);
+          return;
+        }
+      }
+    }
+    if (mode === "download") {
+      downloadPdfViaLink(url, file.name);
+      setPdf({ url, file, canShare: canSharePdfFile(file) });
+      return;
+    }
+    openPdfBlob(url);
+    setPdf({ url, file, canShare: canSharePdfFile(file) });
   }
-  function openPdf(url: string) {
-    const opened = window.open(url, "_blank", "noopener,noreferrer");
-    if (!opened) window.location.assign(url);
+
+  async function fetchPdf() {
+    setPending("pdf");
+    setError("");
+    try {
+      const r = await fetch(`/api/invoices/${id}/pdf`, {
+        credentials: "same-origin",
+      });
+      const data = r.ok ? null : await r.json().catch(() => ({}));
+      if (!r.ok) {
+        throw new Error(
+          pdfExportErrorMessage(
+            typeof data?.error === "string"
+              ? data.error
+              : "PDF download failed.",
+            typeof data?.stage === "string" ? data.stage : undefined,
+          ),
+        );
+      }
+      const file = new File([await r.blob()], `${number}.pdf`, {
+        type: "application/pdf",
+      });
+      const url = URL.createObjectURL(file);
+      await deliverPdf(file, url);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "PDF download failed.");
+    } finally {
+      setPending("");
+    }
   }
+
   return (
     <div className="export-actions no-print">
       <div className="heading-actions">
         <Button variant="secondary" onClick={() => window.print()}>
           <Printer size={16} /> <T text="Print" />
         </Button>
-        {pdf && !appleTouch ? (
-          <Button asChild>
-            <a href={pdf.url} download={pdf.file.name}>
-              <Download size={16} /> <T text="Download PDF" />
-            </a>
+        {!pdf ? (
+          <Button disabled={!!pending} onClick={fetchPdf}>
+            <Download size={16} />
+            {pending === "pdf" ? (
+              <T text="Preparing PDF..." />
+            ) : (
+              <T text="Save PDF" />
+            )}
           </Button>
-        ) : pdf && appleTouch ? (
+        ) : (
           <>
             {pdf.canShare && (
               <Button
@@ -61,11 +117,11 @@ export function InvoiceActions({
                   setError("");
                   setPending("share");
                   try {
-                    await sharePdf(pdf.file);
+                    await sharePdfFile(pdf.file);
                   } catch (e) {
                     if (!(e instanceof Error && e.name === "AbortError"))
                       setError(
-                        "Could not share PDF. Open PDF and use Safari's share menu.",
+                        "Could not share PDF. Try Open PDF or use Print.",
                       );
                   } finally {
                     setPending("");
@@ -76,90 +132,22 @@ export function InvoiceActions({
               </Button>
             )}
             <Button
-              variant="secondary"
+              variant={pdf.canShare ? "secondary" : undefined}
               disabled={!!pending}
-              onClick={() => openPdf(pdf.url)}
+              onClick={() => downloadPdfViaLink(pdf.url, pdf.file.name)}
             >
-              <ExternalLink size={16} /> <T text="Open PDF" />
+              <Download size={16} /> <T text="Download PDF" />
             </Button>
-          </>
-        ) : (
-          <Button
-            disabled={!!pending}
-            onClick={async () => {
-              setPending("pdf");
-              setError("");
-              try {
-                const r = await fetch(`/api/invoices/${id}/pdf`, {
-                  credentials: "same-origin",
-                });
-                if (!r.ok) {
-                  const data = await r.json();
-                  throw new Error(data.error || "PDF download failed.");
-                }
-                const file = new File([await r.blob()], `${number}.pdf`, {
-                  type: "application/pdf",
-                });
-                const url = URL.createObjectURL(file);
-                const canShare =
-                  !!navigator.share &&
-                  !!navigator.canShare?.({ files: [file] });
-                if (appleTouch) {
-                  if (canShare) {
-                    try {
-                      await sharePdf(file);
-                      URL.revokeObjectURL(url);
-                      return;
-                    } catch (e) {
-                      if (e instanceof Error && e.name === "AbortError") {
-                        URL.revokeObjectURL(url);
-                        return;
-                      }
-                    }
-                  }
-                  openPdf(url);
-                  setPdf({ url, file, canShare });
-                  return;
-                }
-                setPdf({ url, file, canShare });
-              } catch (e) {
-                setError(
-                  e instanceof Error ? e.message : "PDF download failed.",
-                );
-              } finally {
-                setPending("");
-              }
-            }}
-          >
-            <Download size={16} />
-            {pending === "pdf" ? (
-              <T text="Preparing PDF..." />
-            ) : appleTouch ? (
-              <T text="Save PDF" />
-            ) : (
-              <T text="Prepare PDF" />
+            {(touchUi || !pdf.canShare) && (
+              <Button
+                variant="secondary"
+                disabled={!!pending}
+                onClick={() => openPdfBlob(pdf.url)}
+              >
+                <ExternalLink size={16} /> <T text="Open PDF" />
+              </Button>
             )}
-          </Button>
-        )}
-        {pdf?.canShare && !appleTouch && (
-          <Button
-            variant="secondary"
-            disabled={!!pending}
-            onClick={async () => {
-              setError("");
-              setPending("share");
-              try {
-                await sharePdf(pdf.file);
-              } catch (e) {
-                if (!(e instanceof Error && e.name === "AbortError"))
-                  setError("Could not share PDF. Please use Download PDF.");
-              } finally {
-                setPending("");
-              }
-            }}
-          >
-            <Share2 size={16} /> <T text="Share PDF" />
-          </Button>
+          </>
         )}
         {canPay && (
           <Button
@@ -188,15 +176,13 @@ export function InvoiceActions({
       </div>
       {pdf && (
         <p className="message" role="status">
-          {appleTouch ? (
-            <T
-              text="On iPad and iPhone, use Share PDF to save to Files, or Open PDF and tap Safari's share icon."
-            />
-          ) : (
-            <T
-              text="PDF ready. Tap Download PDF to save it, or Share PDF to choose where to save it."
-            />
-          )}
+          <T
+            text={
+              touchUi
+                ? "PDF ready. Use Share PDF to save to Files or another app, Open PDF in the browser, or Print from the invoice."
+                : "PDF ready. Download PDF to save it, Share PDF on supported devices, or use Print."
+            }
+          />
         </p>
       )}
       {error && (

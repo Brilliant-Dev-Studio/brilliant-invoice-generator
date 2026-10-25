@@ -363,14 +363,32 @@ export const platformMyanmar: Record<string, string> = {
   "Save PDF": "PDF သိမ်းရန်",
   "Open PDF": "PDF ဖွင့်ရန်",
   "Share PDF": "PDF မျှဝေရန်",
-  "Could not share PDF. Open PDF and use Safari's share menu.":
-    "PDF မျှဝေ၍ မရပါ။ PDF ဖွင့်ပြီး Safari မှ မျှဝေခလုတ်ကို သုံးပါ။",
-  "On iPad and iPhone, use Share PDF to save to Files, or Open PDF and tap Safari's share icon.":
-    "iPad/iPhone တွင် Files သိမ်းရန် Share PDF ကို သုံးပါ၊ သို့မဟုတ် Open PDF နှိပ်ပြီး Safari မှ မျှဝေခလုတ်ကို နှိပ်ပါ။",
-  "Could not share PDF. Please use Download PDF.":
-    "PDF မျှဝေ၍ မရပါ။ PDF ဒေါင်းလုဒ်ရန်ကို အသုံးပြုပါ။",
-  "PDF ready. Tap Download PDF to save it, or Share PDF to choose where to save it.":
-    "PDF အသင့်ဖြစ်ပါပြီ။ သိမ်းဆည်းရန် PDF ဒေါင်းလုဒ်ရန်ကို နှိပ်ပါ၊ သို့မဟုတ် သိမ်းဆည်းမည့်နေရာရွေးရန် PDF မျှဝေရန်ကို နှိပ်ပါ။",
+  "Could not share PDF. Try Open PDF or use Print.":
+    "PDF မျှဝေ၍ မရပါ။ PDF ဖွင့်ရန် သို့မဟုတ် ပုံနှိပ်ရန် ကို သုံးပါ။",
+  "PDF ready. Use Share PDF to save to Files or another app, Open PDF in the browser, or Print from the invoice.":
+    "PDF အသင့်ဖြစ်ပါပြီ။ Files သို့ သိမ်းရန် Share PDF၊ browser တွင် ကြည့်ရန် Open PDF၊ သို့မဟုတ် ပုံနှိပ်ရန် ကို သုံးပါ။",
+  "PDF ready. Download PDF to save it, Share PDF on supported devices, or use Print.":
+    "PDF အသင့်ဖြစ်ပါပြီ။ သိမ်းရန် Download PDF၊ မျှဝေရန် Share PDF (ပံ့ပိုးသော စက်များ)၊ သို့မဟုတ် Print ကို သုံးပါ။",
+  "PDF export is not available on the server (browser could not start). Use Print, or contact support.":
+    "Server တွင် PDF browser မစပါ။ ပုံနှိပ်ရန် သုံးပါ၊ သို့မဟုတ် support ဆက်သွယ်ပါ။",
+  "PDF export is not available on the server (browser setup failed). Use Print, or contact support.":
+    "Server တွင် PDF ပြင်ဆင်မှု မအောင်မြင်ပါ။ ပုံနှိပ်ရန် သုံးပါ၊ သို့မဟုတ် support ဆက်သွယ်ပါ။",
+  "PDF export could not load the invoice page. The server APP_URL may be wrong, or the request timed out. Try Print instead.":
+    "ပြေစာစာမျက်နှာ load မရပါ။ Server APP_URL မှားနိုင်သည် သို့မဟုတ် အချိန်ကုန်ပါသည်။ ပုံနှိပ်ရန် သုံးပါ။",
+  "PDF export was denied. Sign in again and retry, or use Print.":
+    "PDF ခွင့်ပြုချက် မရပါ။ ပြန် login ဝင်ပြီး ထပ်စမ်းပါ၊ သို့မဟုတ် ပုံနှိပ်ရန် သုံးပါ။",
+  "PDF export received an error from the invoice page. Try Print, or ask your administrator to check APP_URL.":
+    "ပြေစာစာမျက်နှာမှ error ပြန်ပါသည်။ Print သုံးပါ၊ သို့မဟုတ် APP_URL စစ်ပါ။",
+  "PDF export lost your session. Sign in again and retry, or use Print.":
+    "Session ပျောက်ပါသည်။ ပြန် login ဝင်ပြီး ထပ်စမ်းပါ၊ သို့မဟုတ် ပုံနှိပ်ရန် သုံးပါ။",
+  "PDF export could not load invoice fonts. Try Print.":
+    "PDF အတွက် font load မရပါ။ ပုံနှိပ်ရန် သုံးပါ။",
+  "PDF export could not load a logo, QR code, or signature. Fix company images in Settings, or use Print.":
+    "Logo၊ QR သို့မဟုတ် လက်မှတ် load မရပါ။ Settings တွင် ပုံစစ်ပါ၊ သို့မဟုတ် ပုံနှိပ်ရန် သုံးပါ။",
+  "PDF export could not verify the demo watermark. Try again or use Print.":
+    "Demo watermark စစ်မရပါ။ ထပ်စမ်းပါ သို့မဟုတ် ပုံနှိပ်ရန် သုံးပါ။",
+  "PDF export could not render the file. Try Print.":
+    "PDF ဖိုင်မထုတ်နိုင်ပါ။ ပုံနှိပ်ရန် သုံးပါ။",
   "Preparing PDF...": "PDF ပြင်ဆင်နေသည်...",
   "Mark paid": "ပေးချေပြီးဟု မှတ်ရန်",
   "FROM GREAT WORK TO": "သင့်လုပ်ငန်းအတွက်",

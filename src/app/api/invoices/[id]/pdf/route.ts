@@ -72,16 +72,18 @@ export async function GET(
       },
     ]);
     const page = await context.newPage();
+    const bypass = process.env.VERCEL_AUTOMATION_BYPASS_SECRET?.trim();
+    if (bypass) {
+      await page.setExtraHTTPHeaders({
+        "x-vercel-protection-bypass": bypass,
+      });
+    }
     stage = "load-invoice";
     const printUrl = `${base.replace(/\/$/, "")}/dashboard/invoices/${id}/print`;
     // Avoid networkidle: Next dev keeps HMR sockets open and never goes idle.
     const response = await page.goto(printUrl, {
       waitUntil: "load",
       timeout: 60000,
-    });
-    await page.waitForSelector(".print-document .invoice-paper", {
-      state: "visible",
-      timeout: 30000,
     });
     if (!response?.ok()) {
       stage =
@@ -92,6 +94,10 @@ export async function GET(
         `Print page returned HTTP ${response?.status() ?? "no response"}.`,
       );
     }
+    await page.waitForSelector(".print-document .invoice-paper", {
+      state: "visible",
+      timeout: 30000,
+    });
     if (new URL(page.url()).pathname !== `/dashboard/invoices/${id}/print`) {
       stage = "invoice-session";
       throw new Error("Print request redirected away from the invoice.");
@@ -102,8 +108,37 @@ export async function GET(
     });
     stage = "load-images";
     await page.evaluate(async () => {
+      const wait = (image: HTMLImageElement, ms: number) =>
+        new Promise<void>((resolve, reject) => {
+          if (image.complete && image.naturalWidth > 0) {
+            resolve();
+            return;
+          }
+          const timer = window.setTimeout(
+            () => reject(new Error("Image load timed out.")),
+            ms,
+          );
+          image.addEventListener(
+            "load",
+            () => {
+              window.clearTimeout(timer);
+              resolve();
+            },
+            { once: true },
+          );
+          image.addEventListener(
+            "error",
+            () => {
+              window.clearTimeout(timer);
+              reject(new Error("Image failed to load."));
+            },
+            { once: true },
+          );
+        });
       await Promise.all(
-        Array.from(document.images).map((image) => image.decode()),
+        Array.from(document.images).map((image) =>
+          image.decode().catch(() => wait(image, 20000)),
+        ),
       );
     });
     stage = "verify-watermark";
