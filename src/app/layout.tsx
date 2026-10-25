@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
+import { Suspense } from "react";
 import { cookies } from "next/headers";
+import { NavigationProgress } from "@/components/navigation-progress";
 import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ValidationToasts } from "@/components/validation-toasts";
@@ -86,7 +88,12 @@ export default async function RootLayout({
           <i className="night-shooting-star" />
         </div>
         <LanguageProvider locale={locale}>
-          <ThemeProvider initialTheme={theme}>{children}</ThemeProvider>
+          <ThemeProvider initialTheme={theme}>
+            <Suspense fallback={null}>
+              <NavigationProgress />
+            </Suspense>
+            {children}
+          </ThemeProvider>
           <ValidationToasts />
         </LanguageProvider>
       </body>

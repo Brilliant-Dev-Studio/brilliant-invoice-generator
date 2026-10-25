@@ -29,7 +29,7 @@
 /* A permanent rail gives iPad portrait and landscape the same navigation. */
 @media screen and (min-width: 768px) and (max-width: 1366px) {
   .client-workspace {
-    --rail-width: 116px;
+    --rail-width: 104px;
     padding-left: calc(var(--rail-width) + env(safe-area-inset-left));
     padding-right: env(safe-area-inset-right);
     padding-bottom: env(safe-area-inset-bottom);
@@ -90,7 +90,7 @@
     position: relative;
     flex: 0 0 auto;
     flex-direction: column;
-    width: min(96px, 100%);
+    width: min(88px, 100%);
     margin-inline: auto;
     min-height: 78px;
     gap: 6px;

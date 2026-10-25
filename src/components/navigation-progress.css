@@ -1,0 +1,32 @@
+.route-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 10000;
+  height: 3px;
+  pointer-events: none;
+  background: color-mix(in srgb, var(--border) 35%, transparent);
+}
+
+.route-progress-bar {
+  height: 100%;
+  width: 100%;
+  transform-origin: 0 50%;
+  background: linear-gradient(
+    90deg,
+    var(--accent-text),
+    color-mix(in srgb, var(--accent-text) 70%, #f1cc7a)
+  );
+  box-shadow: 0 0 10px color-mix(in srgb, var(--accent-text) 45%, transparent);
+  transition: transform 280ms ease;
+}
+
+html[data-theme="dark"] .route-progress-bar {
+  background: linear-gradient(90deg, #f0d498, #e8b86d);
+  box-shadow: 0 0 12px #f0d49855;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-progress-bar {
+    transition: none;
+  }
+}
