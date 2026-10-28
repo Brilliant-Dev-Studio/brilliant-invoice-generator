@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // The native application has a separate TypeScript/toolchain configuration.
+    "mobile/**",
   ]),
 ]);
 

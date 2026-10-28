@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="my">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      @font-face {
+        font-family: "Noto Myanmar";
+        src: url("../src/app/fonts/myanmar/noto-sans-myanmar-600.woff")
+          format("woff");
+        font-weight: 600;
+      }
+      @font-face {
+        font-family: "Hanken";
+        src: url("../node_modules/@fontsource-variable/hanken-grotesk/files/hanken-grotesk-latin-wght-normal.woff2")
+          format("woff2");
+        font-weight: 500 700;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        margin: 0;
+        background: #111;
+        font-family: "Hanken", system-ui, sans-serif;
+      }
+      .screen {
+        width: 520px;
+        height: 1120px;
+        overflow: hidden;
+        background: #fff7e7;
+        color: #3d2a24;
+        position: relative;
+      }
+      .my {
+        font-family: "Noto Myanmar", sans-serif;
+      }
+      /* —— Dashboard (slide 3) —— */
+      #preview-workspace {
+        background:
+          radial-gradient(ellipse at 50% 0%, #e8f0e4, transparent 55%),
+          #fff7e7;
+      }
+      .ws-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 28px 24px 16px;
+        border-bottom: 1px solid #e8dcc8;
+      }
+      .ws-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 700;
+        font-size: 22px;
+      }
+      .ws-brand img {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+      }
+      .ws-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        background: #a45138;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+      }
+      .ws-bar {
+        padding: 16px 24px 8px;
+        font-size: 14px;
+        color: #8a7568;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .ws-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: #5a8f5c;
+      }
+      .ws-hero {
+        padding: 8px 24px 20px;
+        border-bottom: 1px solid #e8dcc8;
+      }
+      .ws-hero small {
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #8a7568;
+      }
+      .ws-hero h1 {
+        font-size: 28px;
+        line-height: 1.25;
+        margin-top: 8px;
+        letter-spacing: -0.03em;
+      }
+      .ws-hero h1 strong {
+        font-weight: 700;
+      }
+      .ws-cta {
+        display: inline-flex;
+        margin-top: 14px;
+        padding: 12px 20px;
+        border-radius: 999px;
+        background: #a45138;
+        color: #fff7e7;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .ws-tabs {
+        display: flex;
+        gap: 8px;
+        padding: 16px 24px;
+      }
+      .ws-tabs span {
+        padding: 8px 14px;
+        border-radius: 10px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #8a7568;
+      }
+      .ws-tabs span.on {
+        background: #a4513818;
+        color: #a45138;
+      }
+      .ws-stat-big {
+        margin: 0 24px 12px;
+        padding: 22px;
+        border-radius: 18px;
+        border: 1px solid #e1d2bb;
+        background: linear-gradient(120deg, #fffdf8, #f8ebe0);
+      }
+      .ws-stat-big label {
+        font-size: 13px;
+        color: #8a7568;
+      }
+      .ws-stat-big strong {
+        display: block;
+        font-size: 36px;
+        letter-spacing: -0.04em;
+        margin-top: 6px;
+      }
+      .ws-stat-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        padding: 0 24px;
+      }
+      .ws-stat {
+        padding: 16px;
+        border-radius: 16px;
+        border: 1px solid #e1d2bb;
+        background: #fffdf8;
+      }
+      .ws-stat label {
+        font-size: 12px;
+        color: #8a7568;
+      }
+      .ws-stat strong {
+        display: block;
+        font-size: 22px;
+        margin-top: 4px;
+      }
+      .ws-chart {
+        margin: 20px 24px;
+        padding: 20px;
+        border-radius: 20px;
+        background: linear-gradient(130deg, #193f36, #102b27);
+        color: #dce7d7;
+        min-height: 200px;
+      }
+      .ws-chart h3 {
+        font-size: 14px;
+        font-weight: 600;
+        opacity: 0.85;
+      }
+      .ws-chart strong {
+        display: block;
+        font-size: 32px;
+        margin-top: 12px;
+        letter-spacing: -0.04em;
+      }
+      .ws-bars {
+        display: flex;
+        align-items: flex-end;
+        gap: 12px;
+        height: 90px;
+        margin-top: 20px;
+      }
+      .ws-bars i {
+        flex: 1;
+        border-radius: 6px 6px 0 0;
+        background: #a9c2ac;
+        min-height: 20%;
+      }
+      .ws-bars i:nth-child(4) {
+        background: #e9c794;
+        min-height: 75%;
+      }
+      .ws-bars i:nth-child(6) {
+        min-height: 55%;
+      }
+      .ws-dock {
+        position: absolute;
+        left: 16px;
+        right: 16px;
+        bottom: 20px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        padding: 10px;
+        border-radius: 22px;
+        background: #fff9ee;
+        border: 1px solid #e1d2bb;
+        box-shadow: 0 12px 28px #28201328;
+        text-align: center;
+        font-size: 11px;
+        color: #8a7568;
+      }
+      .ws-dock span.on {
+        color: #a45138;
+        font-weight: 600;
+      }
+      /* —— Invoice + QR (slide 4) —— */
+      #preview-payments {
+        background: #f5efe3;
+        padding: 20px 16px;
+      }
+      .inv-paper {
+        background: #fffdf8;
+        border-radius: 16px;
+        border: 1px solid #e1d2bb;
+        box-shadow: 0 16px 40px #1a120818;
+        padding: 24px 22px;
+        min-height: 620px;
+      }
+      .inv-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 20px;
+      }
+      .inv-head img {
+        width: 44px;
+        height: 44px;
+      }
+      .inv-head span {
+        text-align: right;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        color: #a45138;
+      }
+      .inv-title {
+        font-size: 22px;
+        line-height: 1.35;
+        margin-bottom: 16px;
+      }
+      .inv-title strong {
+        display: block;
+        font-size: 26px;
+      }
+      .inv-line {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-bottom: 1px solid #efe5d6;
+        font-size: 15px;
+      }
+      .inv-total {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 2px solid #3d2a24;
+      }
+      .inv-total strong {
+        font-size: 28px;
+        letter-spacing: -0.03em;
+      }
+      .pay-block {
+        margin-top: 24px;
+        padding: 20px;
+        border-radius: 16px;
+        background: #fff7e7;
+        border: 1px dashed #c9b89e;
+        text-align: center;
+      }
+      .pay-block h4 {
+        font-size: 16px;
+        margin-bottom: 12px;
+      }
+      .qr-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-top: 8px;
+      }
+      .qr-box {
+        aspect-ratio: 1;
+        border-radius: 12px;
+        background:
+          linear-gradient(45deg, #333 25%, transparent 25%) 0 0/12px 12px,
+          linear-gradient(-45deg, #333 25%, transparent 25%) 0 0/12px 12px,
+          #fff;
+        border: 2px solid #e1d2bb;
+        position: relative;
+      }
+      .qr-box::after {
+        content: "QR";
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: 700;
+        color: #5c4a42;
+        background: rgba(255, 247, 231, 0.75);
+      }
+      .qr-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: #a45138;
+        margin-top: 6px;
+      }
+      .pay-tags {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 16px;
+        flex-wrap: wrap;
+      }
+      .pay-tags span {
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: #a4513814;
+        color: #a45138;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      /* —— Invoices list (slide 5) —— */
+      #preview-mobile {
+        background: #fff7e7;
+      }
+      .mob-top {
+        padding: 28px 24px 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .mob-top h2 {
+        font-size: 26px;
+        letter-spacing: -0.03em;
+      }
+      .mob-list {
+        padding: 12px 20px 100px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .mob-card {
+        padding: 18px;
+        border-radius: 16px;
+        background: #fffdf8;
+        border: 1px solid #e1d2bb;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 4px 12px;
+        align-items: center;
+      }
+      .mob-card .id {
+        font-size: 13px;
+        color: #8a7568;
+        font-weight: 600;
+      }
+      .mob-card .amt {
+        font-size: 20px;
+        font-weight: 700;
+      }
+      .mob-card .st {
+        font-size: 12px;
+        font-weight: 600;
+        color: #5a8f5c;
+      }
+      .mob-card .st.draft {
+        color: #8a7568;
+      }
+      .mob-fab {
+        position: absolute;
+        right: 24px;
+        bottom: 100px;
+        width: 56px;
+        height: 56px;
+        border-radius: 999px;
+        background: #a45138;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        box-shadow: 0 8px 24px #a4513848;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="preview-workspace" class="screen">
+      <div class="ws-top">
+        <div class="ws-brand">
+          <img src="../public/san-pya-logo.png" alt="" />
+          <span class="my">စံပြ</span>
+        </div>
+        <div class="ws-avatar">S</div>
+      </div>
+      <div class="ws-bar">
+        <span class="ws-dot"></span>
+        <span class="my">စံပြ စတူဒီယို</span>
+      </div>
+      <div class="ws-hero">
+        <small class="my">သင့်လုပ်ငန်းကို တစ်နေရာတည်းမှ ကြည့်ရှုပါ</small>
+        <h1 class="my">ပြန်လည်ကြိုဆိုပါတယ် <strong>အောင်မင်း</strong>.</h1>
+        <span class="ws-cta my">ပြေစာ ဖန်တီးရန်</span>
+      </div>
+      <div class="ws-tabs">
+        <span class="on">MMK</span><span>USD</span><span>THB</span>
+      </div>
+      <div class="ws-stat-big">
+        <label class="my">လစဉ်ဝင်ငွေ</label>
+        <strong>၁,၂၀၀,၀၀၀</strong>
+      </div>
+      <div class="ws-stat-row">
+        <div class="ws-stat">
+          <label class="my">ကြွေးကျန်</label>
+          <strong>၄၅၀,၀၀၀</strong>
+        </div>
+        <div class="ws-stat">
+          <label class="my">ပြေစာ</label>
+          <strong>12</strong>
+        </div>
+      </div>
+      <div class="ws-chart">
+        <h3 class="my">ဝင်ငွေခြုံငုံ</h3>
+        <strong>၁.၂M</strong>
+        <div class="ws-bars" aria-hidden="true">
+          <i style="height: 35%"></i><i style="height: 50%"></i><i style="height: 42%"></i
+          ><i></i><i style="height: 60%"></i><i></i>
+        </div>
+      </div>
+      <nav class="ws-dock my" aria-hidden="true">
+        <span class="on">ပင်မ</span><span>ပြေစာ</span><span>ဖောက်သည်</span>
+      </nav>
+    </div>
+
+    <div id="preview-payments" class="screen" style="display: none">
+      <div class="inv-paper">
+        <div class="inv-head">
+          <img src="../public/san-pya-logo.png" alt="" />
+          <span>INVOICE<br />#INV-104</span>
+        </div>
+        <p class="inv-title my">
+          သပ်ရပ်လှပတဲ့ ပြေစာ
+          <strong>Your Client Co.</strong>
+        </p>
+        <div class="inv-line my">
+          <span>ဝန်ဆောင်မှု</span><strong>၄၅၀,၀၀၀</strong>
+        </div>
+        <div class="inv-line my">
+          <span>အခွန်</span><strong>၀</strong>
+        </div>
+        <div class="inv-total my">
+          <span>စုစုပေါင်း</span><strong>၄၅၀,၀၀၀</strong>
+        </div>
+        <div class="pay-block">
+          <h4 class="my">ငွေပေးချေရန်</h4>
+          <div class="qr-grid">
+            <div>
+              <div class="qr-box"></div>
+              <div class="qr-label">KPay</div>
+            </div>
+            <div>
+              <div class="qr-box"></div>
+              <div class="qr-label">Wave</div>
+            </div>
+          </div>
+          <div class="pay-tags">
+            <span>KBZ Pay</span><span>Wave Money</span><span>Bank</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="preview-mobile" class="screen" style="display: none">
+      <div class="mob-top">
+        <h2 class="my">ပြေစာများ</h2>
+        <img src="../public/san-pya-logo.png" alt="" width="36" height="36" />
+      </div>
+      <div class="mob-list">
+        <article class="mob-card">
+          <span class="id">#INV-104</span>
+          <span class="amt">၄၅၀,၀၀၀</span>
+          <span class="st my">ပေးပြီး</span>
+        </article>
+        <article class="mob-card">
+          <span class="id">#INV-105</span>
+          <span class="amt">၁၈၀,၀၀၀</span>
+          <span class="st draft my">မူကြမ်း</span>
+        </article>
+        <article class="mob-card">
+          <span class="id">#INV-103</span>
+          <span class="amt">၉၂၀,၀၀၀</span>
+          <span class="st my">ပေးပြီး</span>
+        </article>
+        <article class="mob-card">
+          <span class="id">#INV-102</span>
+          <span class="amt">၃၂၀,၀၀၀</span>
+          <span class="st my">ပေးပြီး</span>
+        </article>
+      </div>
+      <div class="mob-fab" aria-hidden="true">+</div>
+      <nav class="ws-dock my" aria-hidden="true">
+        <span>ပင်မ</span><span class="on">ပြေစာ</span><span>ဖောက်သည်</span>
+      </nav>
+    </div>
+  </body>
+</html>

@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { COOKIE, readSession } from "@/lib/session";
 export async function proxy(request: NextRequest) {
+  // Mobile routes authenticate bearer sessions themselves, including public login.
+  if (request.nextUrl.pathname.startsWith("/api/mobile/"))
+    return NextResponse.next();
   const { user, reason } = await readSession(
     request.cookies.get(COOKIE)?.value,
   );

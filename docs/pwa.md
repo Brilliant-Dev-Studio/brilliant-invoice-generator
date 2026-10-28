@@ -34,6 +34,7 @@ This is a **PWA** (web app), not an APK from Play Store.
 
 - **Internet required** — invoices and auth use the live server (not offline-first).
 - **PDF** — use **Save PDF** → **Share** → Files (same as mobile browser).
+- **Gallery (PNG)** — use **Save to gallery** → **Save PNG to gallery** (share sheet → Photos on iPhone/Android).
 - After changing icons, run `npm run pwa:icons` and redeploy.
 - Service worker updates on redeploy; users may need to close and reopen the installed app once.
 

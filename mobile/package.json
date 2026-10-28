@@ -1,0 +1,32 @@
+{
+  "name": "brilliant-invoice-ios",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "react-native start",
+    "ios": "node scripts/run-ios.cjs",
+    "ios:device": "react-native run-ios --device",
+    "pods": "cd ios && pod install",
+    "typecheck": "tsc --noEmit",
+    "test": "node --experimental-strip-types --test ../tests/money.test.ts ../tests/mobile-api.test.ts tests/*.test.cjs"
+  },
+  "dependencies": {
+    "react": "19.2.3",
+    "react-native": "0.86.0",
+    "react-native-safe-area-context": "5.8.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/runtime": "^7.25.0",
+    "@react-native-community/cli": "20.1.0",
+    "@react-native-community/cli-platform-ios": "20.1.0",
+    "@react-native/babel-preset": "0.86.0",
+    "@react-native/metro-config": "0.86.0",
+    "@react-native/typescript-config": "0.86.0",
+    "@types/react": "^19.2.0",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">=22.11.0"
+  }
+}

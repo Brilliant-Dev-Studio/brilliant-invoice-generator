@@ -220,3 +220,12 @@ Yangon date and exclude future starts. Growth counts first subscription starts,
 not account registrations, and retains clients whose subscriptions later expire.
 Plan value is not payment revenue. Charts support light/dark themes and small screens.
 # brilliant-invoice-generator
+
+## Native iOS application
+
+`mobile/` contains the React Native CLI customer workspace and Xcode project.
+It connects through `/api/mobile/*` to the same company-scoped invoice actions,
+with Keychain-backed bearer sessions and native PDF sharing. See
+[mobile/README.md](mobile/README.md) for setup, included flows, API details, and
+remaining device verification. Platform-owner administration and company/team
+configuration remain in the web workspace.

@@ -1,21 +1,33 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Check, Download, ExternalLink, Printer, Share2 } from "lucide-react";
+import {
+  Check,
+  Download,
+  ExternalLink,
+  ImageDown,
+  Printer,
+  Share2,
+} from "lucide-react";
 import { markPaid } from "@/actions/invoices";
 import {
+  canShareFile,
   canSharePdfFile,
   downloadPdfViaLink,
+  downloadPngViaLink,
   isTouchLikeDevice,
   openPdfBlob,
   pdfExportErrorMessage,
+  pngExportErrorMessage,
   preferredPdfDelivery,
+  shareFile,
   sharePdfFile,
 } from "@/lib/pdf-client";
 import { Button } from "./ui/button";
 import { T } from "./language-provider";
 
-type PdfReady = { url: string; file: File; canShare: boolean };
+type ExportKind = "pdf" | "png";
+type ExportReady = { url: string; file: File; canShare: boolean; kind: ExportKind };
 
 export function InvoiceActions({
   id,
@@ -28,23 +40,23 @@ export function InvoiceActions({
 }) {
   const [pending, setPending] = useState("");
   const [error, setError] = useState("");
-  const [pdf, setPdf] = useState<PdfReady | null>(null);
+  const [ready, setReady] = useState<ExportReady | null>(null);
   const [touchUi, setTouchUi] = useState(false);
   useEffect(() => {
     setTouchUi(isTouchLikeDevice());
   }, []);
   useEffect(() => {
     return () => {
-      if (pdf) URL.revokeObjectURL(pdf.url);
+      if (ready) URL.revokeObjectURL(ready.url);
     };
-  }, [pdf]);
+  }, [ready]);
   const router = useRouter();
 
-  async function deliverPdf(file: File, url: string) {
+  async function deliverExport(file: File, url: string, kind: ExportKind) {
     const mode = preferredPdfDelivery(file);
     if (mode === "share") {
       try {
-        await sharePdfFile(file);
+        await shareFile(file);
         URL.revokeObjectURL(url);
         return;
       } catch (e) {
@@ -55,43 +67,58 @@ export function InvoiceActions({
       }
     }
     if (mode === "download") {
-      downloadPdfViaLink(url, file.name);
-      setPdf({ url, file, canShare: canSharePdfFile(file) });
+      if (kind === "pdf") downloadPdfViaLink(url, file.name);
+      else downloadPngViaLink(url, file.name);
+      setReady({ url, file, canShare: canShareFile(file), kind });
       return;
     }
-    openPdfBlob(url);
-    setPdf({ url, file, canShare: canSharePdfFile(file) });
+    if (kind === "pdf") {
+      openPdfBlob(url);
+      setReady({ url, file, canShare: canSharePdfFile(file), kind });
+      return;
+    }
+    if (kind === "png") downloadPngViaLink(url, file.name);
+    setReady({ url, file, canShare: canShareFile(file), kind });
   }
 
-  async function fetchPdf() {
-    setPending("pdf");
+  async function fetchExport(kind: ExportKind) {
+    setPending(kind);
     setError("");
     try {
-      const r = await fetch(`/api/invoices/${id}/pdf`, {
+      const r = await fetch(`/api/invoices/${id}/${kind}`, {
         credentials: "same-origin",
       });
       const data = r.ok ? null : await r.json().catch(() => ({}));
       if (!r.ok) {
+        const message =
+          typeof data?.error === "string"
+            ? data.error
+            : kind === "pdf"
+              ? "PDF download failed."
+              : "PNG download failed.";
+        const stage =
+          typeof data?.stage === "string" ? data.stage : undefined;
         throw new Error(
-          pdfExportErrorMessage(
-            typeof data?.error === "string"
-              ? data.error
-              : "PDF download failed.",
-            typeof data?.stage === "string" ? data.stage : undefined,
-          ),
+          kind === "pdf"
+            ? pdfExportErrorMessage(message, stage)
+            : pngExportErrorMessage(message, stage),
         );
       }
-      const file = new File([await r.blob()], `${number}.pdf`, {
-        type: "application/pdf",
-      });
+      const ext = kind === "pdf" ? "pdf" : "png";
+      const mime = kind === "pdf" ? "application/pdf" : "image/png";
+      const file = new File([await r.blob()], `${number}.${ext}`, { type: mime });
       const url = URL.createObjectURL(file);
-      await deliverPdf(file, url);
+      if (ready) URL.revokeObjectURL(ready.url);
+      await deliverExport(file, url, kind);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "PDF download failed.");
+      setError(e instanceof Error ? e.message : "Export failed.");
     } finally {
       setPending("");
     }
   }
+
+  const pdfReady = ready?.kind === "pdf" ? ready : null;
+  const pngReady = ready?.kind === "png" ? ready : null;
 
   return (
     <div className="export-actions no-print">
@@ -99,8 +126,8 @@ export function InvoiceActions({
         <Button variant="secondary" onClick={() => window.print()}>
           <Printer size={16} /> <T text="Print" />
         </Button>
-        {!pdf ? (
-          <Button disabled={!!pending} onClick={fetchPdf}>
+        {!pdfReady ? (
+          <Button disabled={!!pending} onClick={() => fetchExport("pdf")}>
             <Download size={16} />
             {pending === "pdf" ? (
               <T text="Preparing PDF..." />
@@ -110,14 +137,14 @@ export function InvoiceActions({
           </Button>
         ) : (
           <>
-            {pdf.canShare && (
+            {pdfReady.canShare && (
               <Button
                 disabled={!!pending}
                 onClick={async () => {
                   setError("");
-                  setPending("share");
+                  setPending("share-pdf");
                   try {
-                    await sharePdfFile(pdf.file);
+                    await sharePdfFile(pdfReady.file);
                   } catch (e) {
                     if (!(e instanceof Error && e.name === "AbortError"))
                       setError(
@@ -132,21 +159,68 @@ export function InvoiceActions({
               </Button>
             )}
             <Button
-              variant={pdf.canShare ? "secondary" : undefined}
+              variant={pdfReady.canShare ? "secondary" : undefined}
               disabled={!!pending}
-              onClick={() => downloadPdfViaLink(pdf.url, pdf.file.name)}
+              onClick={() => downloadPdfViaLink(pdfReady.url, pdfReady.file.name)}
             >
               <Download size={16} /> <T text="Download PDF" />
             </Button>
-            {(touchUi || !pdf.canShare) && (
+            {(touchUi || !pdfReady.canShare) && (
               <Button
                 variant="secondary"
                 disabled={!!pending}
-                onClick={() => openPdfBlob(pdf.url)}
+                onClick={() => openPdfBlob(pdfReady.url)}
               >
                 <ExternalLink size={16} /> <T text="Open PDF" />
               </Button>
             )}
+          </>
+        )}
+        {!pngReady ? (
+          <Button
+            variant="secondary"
+            disabled={!!pending}
+            onClick={() => fetchExport("png")}
+          >
+            <ImageDown size={16} />
+            {pending === "png" ? (
+              <T text="Preparing PNG..." />
+            ) : (
+              <T text="Save to gallery" />
+            )}
+          </Button>
+        ) : (
+          <>
+            {pngReady.canShare && (
+              <Button
+                disabled={!!pending}
+                onClick={async () => {
+                  setError("");
+                  setPending("share-png");
+                  try {
+                    await shareFile(pngReady.file);
+                  } catch (e) {
+                    if (!(e instanceof Error && e.name === "AbortError"))
+                      setError(
+                        "Could not save PNG to gallery. Try Download PNG or Print.",
+                      );
+                  } finally {
+                    setPending("");
+                  }
+                }}
+              >
+                <Share2 size={16} /> <T text="Save PNG to gallery" />
+              </Button>
+            )}
+            <Button
+              variant="secondary"
+              disabled={!!pending}
+              onClick={() =>
+                downloadPngViaLink(pngReady.url, pngReady.file.name)
+              }
+            >
+              <ImageDown size={16} /> <T text="Download PNG" />
+            </Button>
           </>
         )}
         {canPay && (
@@ -159,7 +233,8 @@ export function InvoiceActions({
                 const result = await markPaid(id);
                 if (!result.ok) setError(result.error);
                 else {
-                  setPdf(null);
+                  if (ready) URL.revokeObjectURL(ready.url);
+                  setReady(null);
                   router.refresh();
                 }
               } catch {
@@ -174,13 +249,24 @@ export function InvoiceActions({
           </Button>
         )}
       </div>
-      {pdf && (
+      {pdfReady && (
         <p className="message" role="status">
           <T
             text={
               touchUi
                 ? "PDF ready. Use Share PDF to save to Files or another app, Open PDF in the browser, or Print from the invoice."
                 : "PDF ready. Download PDF to save it, Share PDF on supported devices, or use Print."
+            }
+          />
+        </p>
+      )}
+      {pngReady && (
+        <p className="message" role="status">
+          <T
+            text={
+              touchUi
+                ? "PNG ready. Use Save PNG to gallery for Photos, or Download PNG."
+                : "PNG ready. Download PNG to save the invoice image."
             }
           />
         </p>

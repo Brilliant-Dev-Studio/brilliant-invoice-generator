@@ -394,6 +394,36 @@ export const platformMyanmar: Record<string, string> = {
   "PDF export could not render the file. Try Print.":
     "PDF ဖိုင်မထုတ်နိုင်ပါ။ ပုံနှိပ်ရန် သုံးပါ။",
   "Preparing PDF...": "PDF ပြင်ဆင်နေသည်...",
+  "Save to gallery": "Gallery သို့ သိမ်းရန်",
+  "Save PNG to gallery": "PNG — Gallery သို့ သိမ်းရန်",
+  "Download PNG": "PNG ဒေါင်းလုဒ်ရန်",
+  "Preparing PNG...": "PNG ပြင်ဆင်နေသည်...",
+  "Could not save PNG to gallery. Try Download PNG or Print.":
+    "Gallery သို့ PNG သိမ်း၍ မရပါ။ PNG ဒေါင်းလုဒ် သို့မဟုတ် ပုံနှိပ်ရန် ကို သုံးပါ။",
+  "PNG ready. Use Save PNG to gallery for Photos, or Download PNG.":
+    "PNG အသင့်ဖြစ်ပါပြီ။ Photos သို့ သိမ်းရန် Save PNG to gallery၊ သို့မဟုတ် PNG ဒေါင်းလုဒ် ကို သုံးပါ။",
+  "PNG ready. Download PNG to save the invoice image.":
+    "PNG အသင့်ဖြစ်ပါပြီ။ ပြေစာပုံကို သိမ်းရန် PNG ဒေါင်းလုဒ် ကို သုံးပါ။",
+  "PNG export is not available on the server (browser could not start). Use Print, or contact support.":
+    "Server တွင် PNG browser မစပါ။ ပုံနှိပ်ရန် သုံးပါ၊ သို့မဟုတ် support ဆက်သွယ်ပါ။",
+  "PNG export is not available on the server (browser setup failed). Use Print, or contact support.":
+    "Server တွင် PNG ပြင်ဆင်မှု မအောင်မြင်ပါ။ ပုံနှိပ်ရန် သုံးပါ၊ သို့မဟုတ် support ဆက်သွယ်ပါ။",
+  "PNG export could not load the invoice page. The server APP_URL may be wrong, or the request timed out. Try Print instead.":
+    "ပြေစာစာမျက်နှာ load မရပါ (PNG)။ APP_URL စစ်ပါ သို့မဟုတ် ပုံနှိပ်ရန် သုံးပါ။",
+  "PNG export was denied. Sign in again and retry, or use Print.":
+    "PNG ခွင့်ပြုချက် မရပါ။ ပြန် login ဝင်ပြီး ထပ်စမ်းပါ။",
+  "PNG export received an error from the invoice page. Try Print, or ask your administrator to check APP_URL.":
+    "ပြေစာစာမျက်နှာမှ PNG error ပြန်ပါသည်။ Print သုံးပါ။",
+  "PNG export lost your session. Sign in again and retry, or use Print.":
+    "PNG အတွက် session ပျောက်ပါသည်။ ပြန် login ဝင်ပါ။",
+  "PNG export could not load invoice fonts. Try Print.":
+    "PNG အတွက် font load မရပါ။ ပုံနှိပ်ရန် သုံးပါ။",
+  "PNG export could not load a logo, QR code, or signature. Fix company images in Settings, or use Print.":
+    "PNG အတွက် logo/QR/လက်မှတ် load မရပါ။ Settings တွင် ပုံစစ်ပါ။",
+  "PNG export could not verify the demo watermark. Try again or use Print.":
+    "Demo watermark (PNG) စစ်မရပါ။ ထပ်စမ်းပါ။",
+  "PNG export could not render the image. Try Print.":
+    "PNG မထုတ်နိုင်ပါ။ ပုံနှိပ်ရန် သုံးပါ။",
   "Mark paid": "ပေးချေပြီးဟု မှတ်ရန်",
   "FROM GREAT WORK TO": "သင့်လုပ်ငန်းအတွက်",
   "A little paper magic.": "သပ်ရပ်သော ပြေစာတစ်စောင်။",
