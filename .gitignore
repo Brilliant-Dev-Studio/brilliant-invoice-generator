@@ -38,6 +38,7 @@ yarn-error.log*
 
 # generated marketing assets
 /exports/
+scripts/.cache/
 
 # Built Android APK — keep san-pya.apk for landing download deploy
 /public/downloads/*.apk

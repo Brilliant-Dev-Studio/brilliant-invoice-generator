@@ -1,0 +1,27 @@
+name: Bug report
+description: Something is broken in the app or API
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: Steps to reproduce and what you expected
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: App version or commit
+      placeholder: e.g. package.json version or git sha
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Where
+      options:
+        - Web dashboard
+        - PWA / mobile browser
+        - Native iOS app
+        - API / PDF export
+        - Other
