@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Contributing guide
+    url: https://github.com/Brilliant-Dev-Studio/brilliant-invoice-generator/blob/main/CONTRIBUTING.md
+    about: How to open pull requests and earn GitHub profile achievements legitimately
+  - name: GitHub achievements guide
+    url: https://github.com/Brilliant-Dev-Studio/brilliant-invoice-generator/blob/main/docs/github-achievements.md
+    about: Pull Shark, Starstruck, Galaxy Brain, and other profile badges

@@ -219,7 +219,9 @@ same monthly figures. Historical values use term start dates through today's
 Yangon date and exclude future starts. Growth counts first subscription starts,
 not account registrations, and retains clients whose subscriptions later expire.
 Plan value is not payment revenue. Charts support light/dark themes and small screens.
-# brilliant-invoice-generator
+## Contributing and GitHub profile badges
+
+Use pull requests for changes when you can — merged PRs count toward GitHub profile achievements (**Pull Shark**, **YOLO**, **Pair Extraordinaire**, and others). See [CONTRIBUTING.md](CONTRIBUTING.md) and [docs/github-achievements.md](docs/github-achievements.md) (Myanmar + English guide).
 
 ## Native iOS application
 
